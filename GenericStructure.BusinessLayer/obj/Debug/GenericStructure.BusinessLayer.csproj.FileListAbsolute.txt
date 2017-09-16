@@ -1,4 +1,0 @@
-E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.BusinessLayer\bin\Debug\GenericStructure.BusinessLayer.dll
-E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.BusinessLayer\bin\Debug\GenericStructure.BusinessLayer.pdb
-E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.BusinessLayer\obj\Debug\GenericStructure.BusinessLayer.dll
-E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.BusinessLayer\obj\Debug\GenericStructure.BusinessLayer.pdb
