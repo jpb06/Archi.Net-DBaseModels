@@ -28,42 +28,59 @@ namespace GenericStructure.DataAccessLayer.Manipulation.Repositories.Base
             this.dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters)
+        public virtual IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters)
         {
-            throw new NotImplementedException();
+            return this.dbSet.SqlQuery(query, parameters).ToList();
         }
 
-        public IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null, 
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
+        public virtual IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = null)
         {
-            throw new NotImplementedException();
+            IQueryable<TEntity> query = this.dbSet;
+
+            if (filter != null)
+                query = query.Where(filter);
+
+            foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                query = query.Include(includeProperty);
+
+            if (orderBy != null)
+                return orderBy(query).ToList();
+            else
+                return query.ToList();
         }
 
-        public TEntity GetByID(object id)
+        public virtual TEntity GetByID(object id)
         {
-            throw new NotImplementedException();
+            return this.dbSet.Find(id);
         }
 
-        public void Insert(TEntity entity)
+        public virtual void Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            this.dbSet.Add(entity);
         }
 
-        public void Delete(object id)
+        public virtual void Delete(object id)
         {
-            throw new NotImplementedException();
+            TEntity entityToDelete = this.dbSet.Find(id);
+            Delete(entityToDelete);
         }
 
-        public void Delete(TEntity entityToDelete)
+        public virtual void Delete(TEntity entityToDelete)
         {
-            throw new NotImplementedException();
+            if (this.context.Entry(entityToDelete).State == EntityState.Detached)
+            {
+                this.dbSet.Attach(entityToDelete);
+            }
+            this.dbSet.Remove(entityToDelete);
         }
 
-        public void Update(TEntity entityToUpdate)
+        public virtual void Update(TEntity entityToUpdate)
         {
-            throw new NotImplementedException();
+            this.dbSet.Attach(entityToUpdate);
+            this.context.Entry(entityToUpdate).State = EntityState.Modified;
         }
     }
 }
