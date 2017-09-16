@@ -10,6 +10,5 @@ E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure
 E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll.config
 E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll
 E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.pdb
-E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.csprojResolveAssemblyReference.cache
 E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.dll
 E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.pdb

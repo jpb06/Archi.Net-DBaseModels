@@ -58,6 +58,9 @@
     <Compile Include="Manipulation\Repositories\OrderDetailRepository.cs" />
     <Compile Include="Manipulation\Repositories\OrderRepository.cs" />
     <Compile Include="Manipulation\Services\Base\BaseService.cs" />
+    <Compile Include="Manipulation\Services\OrdersService.cs" />
+    <Compile Include="Manipulation\Services\SalesService.cs" />
+    <Compile Include="Manipulation\Services\UsersService.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Category.cs" />
