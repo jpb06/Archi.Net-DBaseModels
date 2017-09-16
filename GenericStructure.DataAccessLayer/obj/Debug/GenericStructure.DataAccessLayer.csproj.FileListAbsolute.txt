@@ -1,0 +1,15 @@
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll.config
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.pdb
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\EntityFramework.dll
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\EntityFramework.SqlServer.dll
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\EntityFramework.xml
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\bin\Debug\EntityFramework.SqlServer.xml
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.dll
+E:\XenoCid\Anno_2k17\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.pdb
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll.config
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\bin\Debug\GenericStructure.DataAccessLayer.pdb
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.csprojResolveAssemblyReference.cache
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer\obj\Debug\GenericStructure.DataAccessLayer.pdb

@@ -1,0 +1,14 @@
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\obj\Debug\GenericStructure.DataAccessLayer.Tests.csprojResolveAssemblyReference.cache
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\GenericStructure.DataAccessLayer.Tests.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\GenericStructure.DataAccessLayer.Tests.pdb
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\Castle.Core.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\GenericStructure.DataAccessLayer.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\Moq.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\nunit.framework.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\EntityFramework.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\GenericStructure.DataAccessLayer.pdb
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\Moq.pdb
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\Moq.xml
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\bin\Debug\nunit.framework.xml
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\obj\Debug\GenericStructure.DataAccessLayer.Tests.dll
+E:\XenoCid\Anno_2k17\GenericStructureDotNet\GenericStructure.DataAccessLayer.Tests\obj\Debug\GenericStructure.DataAccessLayer.Tests.pdb
