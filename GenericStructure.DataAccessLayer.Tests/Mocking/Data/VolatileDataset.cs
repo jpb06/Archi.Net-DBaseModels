@@ -1,11 +1,11 @@
-﻿using GenericStructure.DataAccessLayer.Models;
+﻿using GenericStructure.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Tests.Mocking.Data
+namespace GenericStructure.Dal.Tests.Mocking.Data
 {
     public class VolatileDataset
     {

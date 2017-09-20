@@ -1,5 +1,5 @@
-﻿using GenericStructure.DataAccessLayer.Context.Contracts;
-using GenericStructure.DataAccessLayer.Models;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Context
+namespace GenericStructure.Dal.Context
 {
     // https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell
     // Get-Help EntityFramework

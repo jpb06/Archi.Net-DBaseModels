@@ -1,4 +1,4 @@
-﻿using GenericStructure.DataAccessLayer.Models.Base;
+﻿using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Manipulation.Repositories.Contracts
+namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
 {
     public interface IRepository<TEntity> where TEntity : BaseModel
     {

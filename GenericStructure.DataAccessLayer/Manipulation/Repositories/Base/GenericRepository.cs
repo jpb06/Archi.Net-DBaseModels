@@ -1,6 +1,6 @@
-﻿using GenericStructure.DataAccessLayer.Context.Contracts;
-using GenericStructure.DataAccessLayer.Manipulation.Repositories.Contracts;
-using GenericStructure.DataAccessLayer.Models.Base;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
+using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Manipulation.Repositories.Base
+namespace GenericStructure.Dal.Manipulation.Repositories.Base
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {

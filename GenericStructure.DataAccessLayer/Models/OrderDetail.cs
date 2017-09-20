@@ -1,4 +1,4 @@
-﻿using GenericStructure.DataAccessLayer.Models.Base;
+﻿using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Models
+namespace GenericStructure.Dal.Models
 {
     public class OrderDetail : BaseModel
     {

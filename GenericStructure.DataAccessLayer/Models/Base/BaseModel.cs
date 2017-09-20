@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Models.Base
+namespace GenericStructure.Dal.Models.Base
 {
     public class BaseModel
     {

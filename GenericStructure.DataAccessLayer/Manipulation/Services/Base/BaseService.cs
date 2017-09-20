@@ -1,12 +1,12 @@
-﻿using GenericStructure.DataAccessLayer.Context;
-using GenericStructure.DataAccessLayer.Context.Contracts;
+﻿using GenericStructure.Dal.Context;
+using GenericStructure.Dal.Context.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Manipulation.Services.Base
+namespace GenericStructure.Dal.Manipulation.Services.Base
 {
     public class BaseService : IDisposable
     {

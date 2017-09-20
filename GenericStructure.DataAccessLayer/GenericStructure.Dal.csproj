@@ -7,8 +7,8 @@
     <ProjectGuid>{D33F958C-36D0-4723-A6DD-EBB269A0F67A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GenericStructure.DataAccessLayer</RootNamespace>
-    <AssemblyName>GenericStructure.DataAccessLayer</AssemblyName>
+    <RootNamespace>GenericStructure.Dal</RootNamespace>
+    <AssemblyName>GenericStructure.Dal</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

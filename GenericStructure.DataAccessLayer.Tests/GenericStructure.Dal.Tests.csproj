@@ -6,8 +6,8 @@
     <ProjectGuid>{040F94B1-C330-4379-AF9D-00B5CC6CEDA3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GenericStructure.DataAccessLayer.Tests</RootNamespace>
-    <AssemblyName>GenericStructure.DataAccessLayer.Tests</AssemblyName>
+    <RootNamespace>GenericStructure.Dal.Tests</RootNamespace>
+    <AssemblyName>GenericStructure.Dal.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -71,9 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GenericStructure.DataAccessLayer\GenericStructure.DataAccessLayer.csproj">
+    <ProjectReference Include="..\GenericStructure.DataAccessLayer\GenericStructure.Dal.csproj">
       <Project>{d33f958c-36d0-4723-a6dd-ebb269a0f67a}</Project>
-      <Name>GenericStructure.DataAccessLayer</Name>
+      <Name>GenericStructure.Dal</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

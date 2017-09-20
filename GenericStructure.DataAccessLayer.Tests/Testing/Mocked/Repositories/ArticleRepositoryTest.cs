@@ -1,6 +1,6 @@
-﻿using GenericStructure.DataAccessLayer.Manipulation.Repositories;
-using GenericStructure.DataAccessLayer.Models;
-using GenericStructure.DataAccessLayer.Tests.Mocking.Data;
+﻿using GenericStructure.Dal.Manipulation.Repositories;
+using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Tests.Mocking.Data;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Tests.Testing.Mocked.Repositories
+namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
 {
     [TestFixture]
     public class ArticleRepositoryTest

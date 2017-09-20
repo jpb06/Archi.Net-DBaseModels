@@ -1,5 +1,5 @@
-﻿using GenericStructure.DataAccessLayer.Manipulation.Services;
-using GenericStructure.DataAccessLayer.Models;
+﻿using GenericStructure.Dal.Manipulation.Services;
+using GenericStructure.Dal.Models;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.DataAccessLayer.Tests.Testing.Database
+namespace GenericStructure.Dal.Tests.Testing.Database
 {
     [TestFixture]
     public class ArticlesTest
