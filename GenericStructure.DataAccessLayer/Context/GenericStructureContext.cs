@@ -12,6 +12,7 @@ namespace GenericStructure.Dal.Context
     // https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell
     // Get-Help EntityFramework
 
+    // Enable-Migrations
     // Add-Migration <name>
     // Update-Database
 
