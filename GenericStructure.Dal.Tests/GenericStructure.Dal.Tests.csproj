@@ -75,11 +75,11 @@
   <ItemGroup>
     <Compile Include="Data\Database\ConsolidatedDataSet.cs" />
     <Compile Include="Data\Database\DatabaseConfiguration.cs" />
-    <Compile Include="Data\Database\Primitives\Articles.cs" />
-    <Compile Include="Data\Database\Primitives\Categories.cs" />
+    <Compile Include="Data\Database\Primitives\ArticlesSqlHelper.cs" />
+    <Compile Include="Data\Database\Primitives\CategoriesSqlHelper.cs" />
     <Compile Include="Data\Mocked\VolatileDataset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Testing\Database\ArticlesTest.cs" />
+    <Compile Include="Testing\Database\DBaseArticlesTest.cs" />
     <Compile Include="Testing\Mocked\Repositories\ArticleRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>

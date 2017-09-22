@@ -11,8 +11,8 @@ namespace GenericStructure.Dal.Tests.Data.Database
     internal class ConsolidatedDataSet : IDisposable
     {
         private SqlConnection connection;
-        private Categories categories;
-        private Articles articles;
+        private CategoriesSqlHelper categories;
+        private ArticlesSqlHelper articles;
 
         public List<int> ArticlesIds { get; private set; }
         public List<int> CategoriesIds { get; private set; }
@@ -25,8 +25,8 @@ namespace GenericStructure.Dal.Tests.Data.Database
             this.connection = new SqlConnection(DatabaseConfiguration.ConnectionString);
             this.connection.Open();
 
-            this.categories = new Categories(this.connection);
-            this.articles = new Articles(this.connection);
+            this.categories = new CategoriesSqlHelper(this.connection);
+            this.articles = new ArticlesSqlHelper(this.connection);
         }
 
         public void Initialize() 
@@ -34,6 +34,9 @@ namespace GenericStructure.Dal.Tests.Data.Database
             this.CategoriesIds.Add(this.categories.Create("Test Category 1"));
 
             this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 1", "Description 1", Guid.NewGuid(), 100.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 2", "Description 2", Guid.NewGuid(), 500.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 3", "Description 3", Guid.NewGuid(), 1000.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 4", "Description 4", Guid.NewGuid(), 1500.0m));
         }
 
         public void Destroy() 

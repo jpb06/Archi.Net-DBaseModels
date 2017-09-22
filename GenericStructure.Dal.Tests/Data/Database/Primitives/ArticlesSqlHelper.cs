@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Data.Database.Primitives
 {
-    internal class Articles
+    internal class ArticlesSqlHelper
     {
         private SqlConnection connection;
 
-        public Articles(SqlConnection connection) 
+        public ArticlesSqlHelper(SqlConnection connection) 
         {
             this.connection = connection;
         }

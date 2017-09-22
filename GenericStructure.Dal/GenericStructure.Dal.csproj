@@ -57,6 +57,9 @@
     <Compile Include="Manipulation\Repositories\OrderDetailRepository.cs" />
     <Compile Include="Manipulation\Repositories\OrderRepository.cs" />
     <Compile Include="Manipulation\Services\Base\BaseService.cs" />
+    <Compile Include="Manipulation\Services\Base\SaveResult.cs" />
+    <Compile Include="Manipulation\Services\Configuration\OptimisticConcurrency.cs" />
+    <Compile Include="Manipulation\Services\Configuration\OptimisticConcurrencyValues.cs" />
     <Compile Include="Manipulation\Services\OrdersService.cs" />
     <Compile Include="Manipulation\Services\SalesService.cs" />
     <Compile Include="Manipulation\Services\UsersService.cs" />

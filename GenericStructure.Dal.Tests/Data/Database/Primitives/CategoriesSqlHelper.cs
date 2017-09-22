@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Data.Database.Primitives
 {
-    internal class Categories
+    internal class CategoriesSqlHelper
     {
         private SqlConnection connection;
 
-        public Categories(SqlConnection connection) 
+        public CategoriesSqlHelper(SqlConnection connection) 
         {
             this.connection = connection;
         }
