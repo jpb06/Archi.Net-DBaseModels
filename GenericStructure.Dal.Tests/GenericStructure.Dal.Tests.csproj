@@ -87,7 +87,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GenericStructure.DataAccessLayer\GenericStructure.Dal.csproj">
+    <ProjectReference Include="..\GenericStructure.Dal\GenericStructure.Dal.csproj">
       <Project>{d33f958c-36d0-4723-a6dd-ebb269a0f67a}</Project>
       <Name>GenericStructure.Dal</Name>
     </ProjectReference>
