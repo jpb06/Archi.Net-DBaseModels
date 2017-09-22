@@ -1,8 +1,13 @@
-﻿using GenericStructure.Dal.Manipulation.Services;
+﻿using GenericStructure.Dal.Context;
+using GenericStructure.Dal.Manipulation.Services;
 using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Tests.Data.Database;
+using GenericStructure.Dal.Tests.Data.Database.Primitives;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,24 +17,45 @@ namespace GenericStructure.Dal.Tests.Testing.Database
     [TestFixture]
     public class ArticlesTest
     {
-        private Article article = new Article
+        private ConsolidatedDataSet dataSet;
+        private Article addArticle;
+
+        public ArticlesTest() 
         {
-            IdCategory = 1,
-            Title = "Article 7",
-            Description = "Description 7",
-            ImagesPath = Guid.NewGuid(),
-            Price = 100m
-        };
+            this.dataSet = new ConsolidatedDataSet();
+        }
+
+        [OneTimeSetUp]
+        public void Init()
+        {
+            this.dataSet.Initialize();
+        }
+
+        [OneTimeTearDown]
+        public void Cleanup()
+        {
+            this.dataSet.Destroy();
+            this.dataSet.Dispose();
+        }
 
         [Test, Order(1)]
         public void Db_AddArticle()
         {
+            this.addArticle = new Article
+            {
+                IdCategory = this.dataSet.CategoriesIds.ElementAt(0),
+                Title = "Test Article 4",
+                Description = "Description 4",
+                ImagesPath = Guid.NewGuid(),
+                Price = 1000.0m
+            };
+
             using (SalesService ss = new SalesService())
             {
-                ss.ArticleRepository.Insert(this.article);
-                int res = ss.Save();
+                ss.ArticleRepository.Insert(this.addArticle);
+                int result = ss.Save();
 
-                Assert.AreEqual(1, res);
+                Assert.AreEqual(1, result);
             }
         }
 
@@ -38,12 +64,12 @@ namespace GenericStructure.Dal.Tests.Testing.Database
         {
             using (SalesService ss = new SalesService())
             {
-                this.article.Title = "Article 7 updated";
-                ss.ArticleRepository.Update(article);
+                this.addArticle.Title = "Article 4 updated";
+                ss.ArticleRepository.Update(this.addArticle);
 
-                int res = ss.Save();
+                int result = ss.Save();
 
-                Assert.AreEqual(1, res);
+                Assert.AreEqual(1, result);
             }
         }
 
@@ -52,12 +78,12 @@ namespace GenericStructure.Dal.Tests.Testing.Database
         {
             using (SalesService ss = new SalesService())
             {
-                Article a = ss.ArticleRepository.GetByID(this.article.Id);
+                Article a = ss.ArticleRepository.GetByID(this.addArticle.Id);
 
                 Assert.IsNotNull(a);
-                Assert.AreEqual(this.article.Title, a.Title);
-                Assert.AreEqual(this.article.Description, a.Description);
-                Assert.AreEqual(this.article.RowVersion, a.RowVersion);
+                Assert.AreEqual(this.addArticle.Title, a.Title);
+                Assert.AreEqual(this.addArticle.Description, a.Description);
+                Assert.AreEqual(this.addArticle.RowVersion, a.RowVersion);
             }
         }
 
@@ -77,11 +103,36 @@ namespace GenericStructure.Dal.Tests.Testing.Database
         {
             using (SalesService ss = new SalesService()) 
             {
-                ss.ArticleRepository.Delete(this.article);
+                ss.ArticleRepository.Delete(this.addArticle);
 
-                int res = ss.Save();
+                int result = ss.Save();
 
-                Assert.AreEqual(1, res);
+                Assert.AreEqual(1, result);
+            }
+        }
+
+        [Test]
+        public void Db_Concurrency()
+        {
+            using (SalesService ss = new SalesService())
+            {
+                var article = ss.ArticleRepository.GetByID(this.dataSet.ArticlesIds.First());
+                article.Description = "a";
+
+                using (SqlConnection connection = new SqlConnection(DatabaseConfiguration.ConnectionString))
+                {
+                    connection.Open();
+                    Articles a = new Articles(connection);
+                    a.ModifyTitle(this.dataSet.ArticlesIds.First(), "b");
+                }
+
+                int result = 0;
+
+                //Assert.That(() => result = ss.Save(),
+                //            Throws.Exception.TypeOf<DbUpdateConcurrencyException>());
+
+                Assert.Throws<DbUpdateConcurrencyException>(() => { result = ss.Save(); });
+                Assert.AreEqual(0, result);
             }
         }
     }

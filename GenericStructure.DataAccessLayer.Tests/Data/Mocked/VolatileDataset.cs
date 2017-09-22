@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Mocking.Data
+namespace GenericStructure.Dal.Tests.Data.Mocked
 {
     public class VolatileDataset
     {

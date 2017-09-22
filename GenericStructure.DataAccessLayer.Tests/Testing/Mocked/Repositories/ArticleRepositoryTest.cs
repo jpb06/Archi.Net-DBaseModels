@@ -1,6 +1,6 @@
 ﻿using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Models;
-using GenericStructure.Dal.Tests.Mocking.Data;
+using GenericStructure.Dal.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
 using System;
