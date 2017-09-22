@@ -121,10 +121,8 @@ namespace GenericStructure.Dal.Tests.Testing.Database
             {
                 var article1 = service1.ArticleRepository.GetByID(this.dataSet.ArticlesIds.First());
                 article1.Description = "User1 Description 1";
-
                 var article2 = service2.ArticleRepository.GetByID(this.dataSet.ArticlesIds.First());
                 article2.Description = "User2 Description 1";
-
 
                 service1.ArticleRepository.Update(article1);
                 service1.Save();
@@ -149,7 +147,6 @@ namespace GenericStructure.Dal.Tests.Testing.Database
             {
                 var article1 = service1.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(1));
                 article1.Description = "User1 Description 2";
-
                 var article2 = service2.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(1));
                 article2.Description = "User2 Description 2";
 
@@ -173,10 +170,8 @@ namespace GenericStructure.Dal.Tests.Testing.Database
             {
                 var article1 = service1.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(2));
                 article1.Description = "User1 Description 3";
-
                 var article2 = service2.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(2));
                 article2.Description = "User2 Description 3";
-
 
                 service1.ArticleRepository.Update(article1);
                 service1.Save();
@@ -198,10 +193,8 @@ namespace GenericStructure.Dal.Tests.Testing.Database
             {
                 var article1 = service1.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(3));
                 article1.Description = "User1 Description 4";
-
                 var article2 = service2.ArticleRepository.GetByID(this.dataSet.ArticlesIds.ElementAt(3));
                 article2.Description = "User2 Description 4";
-
 
                 service1.ArticleRepository.Update(article1);
                 service1.Save();

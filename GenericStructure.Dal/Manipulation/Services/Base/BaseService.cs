@@ -20,8 +20,7 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
         }
 
         public SaveResult Save(OptimisticConcurrencyPolicy policy = OptimisticConcurrencyPolicy.ClientWins)
-        {
-            
+        {   
             bool saveFailed;
             do
             {
