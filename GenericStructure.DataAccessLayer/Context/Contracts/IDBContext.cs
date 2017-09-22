@@ -17,6 +17,8 @@ namespace GenericStructure.Dal.Context.Contracts
         IDbSet<Order> Orders { get; set; }
         IDbSet<OrderDetail> OrderDetails { get; set; }
 
+        Database Database { get; }
+
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         DbEntityEntry Entry(object entity);
         int SaveChanges();

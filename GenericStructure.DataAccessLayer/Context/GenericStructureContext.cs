@@ -16,7 +16,7 @@ namespace GenericStructure.Dal.Context
     // Add-Migration <name>
     // Update-Database
 
-    public class GenericStructureContext : DbContext, IDBContext
+    internal class GenericStructureContext : DbContext, IDBContext
     {
         public GenericStructureContext() : base("name=GenericStructureContextConnectionString") { }
 

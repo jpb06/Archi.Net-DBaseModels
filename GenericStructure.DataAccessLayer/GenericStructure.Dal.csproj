@@ -53,7 +53,6 @@
     <Compile Include="Manipulation\Repositories\ArticleRepository.cs" />
     <Compile Include="Manipulation\Repositories\Base\GenericRepository.cs" />
     <Compile Include="Manipulation\Repositories\CategoryRepository.cs" />
-    <Compile Include="Manipulation\Repositories\Contracts\IRepository.cs" />
     <Compile Include="Manipulation\Repositories\CustomerRepository.cs" />
     <Compile Include="Manipulation\Repositories\OrderDetailRepository.cs" />
     <Compile Include="Manipulation\Repositories\OrderRepository.cs" />
@@ -61,6 +60,11 @@
     <Compile Include="Manipulation\Services\OrdersService.cs" />
     <Compile Include="Manipulation\Services\SalesService.cs" />
     <Compile Include="Manipulation\Services\UsersService.cs" />
+    <Compile Include="Migrations\201709212110136_Init.cs" />
+    <Compile Include="Migrations\201709212110136_Init.Designer.cs">
+      <DependentUpon>201709212110136_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Category.cs" />
@@ -74,7 +78,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <EmbeddedResource Include="Migrations\201709212110136_Init.resx">
+      <DependentUpon>201709212110136_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
