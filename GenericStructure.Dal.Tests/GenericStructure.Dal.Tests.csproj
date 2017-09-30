@@ -79,8 +79,11 @@
     <Compile Include="Data\Database\Primitives\CategoriesSqlHelper.cs" />
     <Compile Include="Data\Mocked\VolatileDataset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Testing\Database\DBaseArticlesTest.cs" />
-    <Compile Include="Testing\Mocked\Repositories\ArticleRepositoryTest.cs" />
+    <Compile Include="Testing\Manipulation\Repositories\DBaseArticleRepositoryTest.cs" />
+    <Compile Include="Testing\Manipulation\Repositories\MockArticleRepositoryTest.cs" />
+    <Compile Include="Testing\Manipulation\Repositories\RepositoriesMappingTest.cs" />
+    <Compile Include="Testing\Manipulation\Repositories\RepositoryLocatorTest.cs" />
+    <Compile Include="Testing\Manipulation\Services\DBaseSalesServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -90,6 +93,10 @@
     <ProjectReference Include="..\GenericStructure.Dal\GenericStructure.Dal.csproj">
       <Project>{d33f958c-36d0-4723-a6dd-ebb269a0f67a}</Project>
       <Name>GenericStructure.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GenericStructure.Framework\GenericStructure.Framework.csproj">
+      <Project>{72cfd26b-5596-4a3f-81cd-5b19d50001c3}</Project>
+      <Name>GenericStructure.Framework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
