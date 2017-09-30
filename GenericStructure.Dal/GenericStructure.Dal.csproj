@@ -71,6 +71,9 @@
     <Compile Include="Manipulation\Services\Base\SaveResult.cs" />
     <Compile Include="Manipulation\Services\Configuration\OptimisticConcurrency.cs" />
     <Compile Include="Manipulation\Services\Configuration\DataConflictInfo.cs" />
+    <Compile Include="Manipulation\Services\Contracts\IOrdersService.cs" />
+    <Compile Include="Manipulation\Services\Contracts\ISalesService.cs" />
+    <Compile Include="Manipulation\Services\Contracts\IUsersService.cs" />
     <Compile Include="Manipulation\Services\OrdersService.cs" />
     <Compile Include="Manipulation\Services\SalesService.cs" />
     <Compile Include="Manipulation\Services\UsersService.cs" />

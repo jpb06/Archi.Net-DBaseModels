@@ -1,6 +1,7 @@
 ﻿using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Base;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
+using GenericStructure.Dal.Manipulation.Services.Contracts;
 using GenericStructure.Dal.Models.Base;
 using GenericStructure.Dal.Models.Contracts;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services
 {
-    public class SalesService : BaseService
+    public class SalesService : BaseService, ISalesService
     {
         public SalesService() : base() { }
         public SalesService(DataConflictPolicy policy) : base(policy) { }

@@ -84,6 +84,7 @@
     <Compile Include="Testing\Manipulation\Repositories\RepositoriesMappingTest.cs" />
     <Compile Include="Testing\Manipulation\Repositories\RepositoryLocatorTest.cs" />
     <Compile Include="Testing\Manipulation\Services\DBaseSalesServiceTest.cs" />
+    <Compile Include="Testing\Manipulation\Services\MockSalesServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
