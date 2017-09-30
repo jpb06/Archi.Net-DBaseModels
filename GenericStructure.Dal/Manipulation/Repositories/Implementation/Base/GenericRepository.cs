@@ -1,4 +1,5 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Manipulation.Repositories.Base
+namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
 {
-    public class GenericRepository<TEntity> where TEntity : BaseModel
+    internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseModel
     {
         internal IDBContext context;
         internal DbSet<TEntity> dbSet;
