@@ -1,5 +1,8 @@
 ﻿using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Base;
+using GenericStructure.Dal.Manipulation.Services.Configuration;
+using GenericStructure.Dal.Models.Base;
+using GenericStructure.Dal.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,31 +13,39 @@ namespace GenericStructure.Dal.Manipulation.Services
 {
     public class SalesService : BaseService
     {
-        private ArticleRepository articleRepository;
-        private CategoryRepository categoryRepository;
-
         public SalesService() : base() { }
+        public SalesService(DataConflictPolicy policy) : base(policy) { }
 
-        public ArticleRepository ArticleRepository
+        #region Alteration
+        public int Create<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
-            get
-            {
-                if (this.articleRepository == null)
-                    this.articleRepository = new ArticleRepository(this.context);
+            SaveResult result = this.CreateFor(model);
 
-                return this.articleRepository;
-            }
+            result.Validate(1);
+
+            return result.AlteredIds[0];
         }
 
-        public CategoryRepository CategoriesRepository
+        public void Modify<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
-            get
-            {
-                if (this.categoryRepository == null)
-                    this.categoryRepository = new CategoryRepository(this.context);
+            SaveResult result = this.ModifyFor(model);
 
-                return this.categoryRepository;
-            }
+            result.Validate(1);
         }
+
+        public void Delete<TModel>(TModel model) where TModel : BaseModel, ISalesModel
+        {
+            SaveResult result = this.DeleteFor(model);
+
+            result.Validate(1);
+        }
+        #endregion
+
+        #region Data
+        public TModel GetById<TModel>(int id) where TModel : BaseModel, ISalesModel
+        {
+            return (TModel)this.GetByIdFor<TModel>(id);
+        }
+        #endregion
     }
 }

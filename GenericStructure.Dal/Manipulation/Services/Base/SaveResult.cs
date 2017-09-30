@@ -9,7 +9,23 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
 {
     public class SaveResult
     {
-        public int AffectedObjectsCount { get; set; }
-        public OptimisticConcurrencyValues Feedback { get; set; }
+        public int AlteredObjectsCount { get; set; }
+        public int[] AlteredIds { get; set; }
+        public DataConflictInfo DataConflictInfo { get; set; }
+
+        public SaveResult()
+        {
+            this.AlteredObjectsCount = 0;
+            this.AlteredIds = new int[] { };
+            this.DataConflictInfo = null;
+        }
+
+        public void Validate(int expectedObjectsCount)
+        {
+            // TODO : Throw proper DalException
+            if (this.AlteredObjectsCount != expectedObjectsCount &&
+                this.AlteredIds.Count() != expectedObjectsCount)
+                throw new Exception("SaveResult : Incorrect AlteredObjectsCount/AlteredIds count");
+        }
     }
 }
