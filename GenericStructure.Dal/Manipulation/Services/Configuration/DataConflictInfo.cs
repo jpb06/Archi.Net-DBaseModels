@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.Configuration
 {
-    public class OptimisticConcurrencyValues
+    public class DataConflictInfo
     {
         public DbPropertyValues DatabaseValues { get; set; }
         public DbPropertyValues CurrentValues { get; set; }

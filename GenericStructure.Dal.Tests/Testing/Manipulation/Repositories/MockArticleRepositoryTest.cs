@@ -1,4 +1,5 @@
 ﻿using GenericStructure.Dal.Manipulation.Repositories;
+using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
 using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Tests.Data.Mocked;
 using Moq;
@@ -10,20 +11,20 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
+namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
 {
     [TestFixture]
-    public class ArticleRepositoryTest
+    public class MockArticleRepositoryTest
     {
-        private ArticleRepository articleRepository;
+        private ArticlesRepository articlesRepository;
 
-        public ArticleRepositoryTest() { }
+        public MockArticleRepositoryTest() { }
 
         [Test]
         public void AddArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Insert(It.IsAny<Article>()))
                                  .Callback((Article a) =>
@@ -38,7 +39,7 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
                                      a.RowVersion = new byte[] { 0, 0, 0, 0, 0, 0, 0, 1 };
                                      store.Articles.Add(a);
                                  }).Verifiable();
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
             Article article = new Article
             {
@@ -49,7 +50,7 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
                 Price = 100m
             };
 
-            this.articleRepository.Insert(article);
+            this.articlesRepository.Insert(article);
 
             mockArticleRepository.Verify(r => r.Insert(It.IsAny<Article>()), Times.Once());
             Assert.AreEqual(8, store.Articles.Count);
@@ -60,7 +61,7 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void UpdateArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Update(It.IsAny<Article>()))
                                  .Callback((Article a) =>
@@ -68,13 +69,13 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
                                      var index = store.Articles.FindIndex(el => el.Id == a.Id);
                                      store.Articles[index] = a;
                                  }).Verifiable();
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
             Article article = store.Articles.ElementAt(4);
             string newTitle = article.Title = "a5";
             string newDescription = article.Description = "a5d";
 
-            this.articleRepository.Update(article);
+            this.articlesRepository.Update(article);
 
             mockArticleRepository.Verify(r => r.Update(It.IsAny<Article>()), Times.Once());
             Assert.AreEqual(newTitle, store.Articles.ElementAt(4).Title);
@@ -86,18 +87,18 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void DeleteArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Delete(It.IsAny<Article>()))
                                  .Callback((Article a) =>
                                  {
                                      store.Articles.Remove(a);
                                  }).Verifiable();
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
             Article article = store.Articles.ElementAt(5);
 
-            this.articleRepository.Delete(article);
+            this.articlesRepository.Delete(article);
 
             mockArticleRepository.Verify(r => r.Delete(It.IsAny<Article>()), Times.Once());
             Assert.AreEqual(6, store.Articles.Count);
@@ -107,7 +108,7 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void DeleteArticleById()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Delete(It.IsAny<int>()))
                                  .Callback((object a) =>
@@ -115,9 +116,9 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
                                      var index = store.Articles.FindIndex(el => el.Id == (int)a);
                                      store.Articles.RemoveAt(index);
                                  }).Verifiable();
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            this.articleRepository.Delete(1);
+            this.articlesRepository.Delete(1);
 
             mockArticleRepository.Verify(r => r.Delete(It.IsAny<int>()), Times.Once());
             Assert.AreEqual(6, store.Articles.Count);
@@ -127,13 +128,13 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticleById()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.GetByID(It.IsInRange<int>(1, 6, Range.Inclusive)))
                                  .Returns<int>(id => store.Articles.Find(el => el.Id == id));
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            Article article = this.articleRepository.GetByID(1);
+            Article article = this.articlesRepository.GetByID(1);
             Article storedArticle = store.Articles.Single(el => el.Id == 1);
 
             Assert.AreEqual(article.Title, storedArticle.Title);
@@ -145,13 +146,13 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticleById_DoesntExist()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.GetByID(It.IsNotIn<int>(1, 2, 3, 4, 5, 6)))
                                  .Returns<Article>(null);
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            Article article = this.articleRepository.GetByID(10);
+            Article article = this.articlesRepository.GetByID(10);
 
             Assert.AreEqual(null, article);
         }
@@ -160,15 +161,15 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticles_IdCategoryFiltered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, null))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => store.Articles.Where(filter.Compile()));
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            var result = this.articleRepository.Get(a => a.IdCategory == 1);
+            var result = this.articlesRepository.Get(a => a.IdCategory == 1);
 
             Assert.AreEqual(3, result.Count());
         }
@@ -177,15 +178,15 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticles_MinimumPriceFiltered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, null))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => store.Articles.Where(filter.Compile()));
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            var result = this.articleRepository.Get(filter: a => a.Price > 100m);
+            var result = this.articlesRepository.Get(filter: a => a.Price > 100m);
 
             Assert.AreEqual(4, result.Count());
         }
@@ -194,15 +195,15 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticles_Ordered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Get(null, It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(), null))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => orderBy.Invoke(store.Articles.AsQueryable()));
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            var result = this.articleRepository.Get(orderBy: q => q.OrderByDescending(a => a.Id));
+            var result = this.articlesRepository.Get(orderBy: q => q.OrderByDescending(a => a.Id));
 
             Assert.AreEqual(7, result.Count());
             Assert.AreEqual(1, result.Last().Id);
@@ -213,7 +214,7 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
         public void GetArticles_PriceFilteredAndOrdered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<ArticleRepository> mockArticleRepository = new Mock<ArticleRepository>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>();
 
             mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(),
                                                    It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(),
@@ -221,9 +222,9 @@ namespace GenericStructure.Dal.Tests.Testing.Mocked.Repositories
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => orderBy.Invoke(store.Articles.Where(filter.Compile()).AsQueryable()));
-            this.articleRepository = mockArticleRepository.Object;
+            this.articlesRepository = mockArticleRepository.Object;
 
-            var result = this.articleRepository.Get(filter: a => a.Price > 100m,
+            var result = this.articlesRepository.Get(filter: a => a.Price > 100m,
                                                     orderBy: q => q.OrderByDescending(a => a.Price));
 
             Assert.AreEqual(4, result.Count());

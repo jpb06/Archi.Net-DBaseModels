@@ -1,4 +1,5 @@
 ﻿using GenericStructure.Dal.Models.Base;
+using GenericStructure.Dal.Models.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Models
 {
-    public class Article : BaseModel
+    public class Article : BaseModel, ISalesModel
     {
         /* ----------------------------------------------------------*/
         [ForeignKey("Category")]
