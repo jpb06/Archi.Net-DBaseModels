@@ -95,10 +95,6 @@
       <Project>{d33f958c-36d0-4723-a6dd-ebb269a0f67a}</Project>
       <Name>GenericStructure.Dal</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GenericStructure.Framework\GenericStructure.Framework.csproj">
-      <Project>{72cfd26b-5596-4a3f-81cd-5b19d50001c3}</Project>
-      <Name>GenericStructure.Framework</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Choose>

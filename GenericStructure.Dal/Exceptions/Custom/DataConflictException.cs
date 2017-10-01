@@ -10,8 +10,8 @@ namespace GenericStructure.Dal.Exceptions.Custom
 {
     public class DataConflictException : DalException
     {
-        public DataConflictException(DataConflictInfo info)
-            : base()
+        public DataConflictException(DalErrorType errorType, DataConflictInfo info)
+            : base(errorType, "Data conflict (Optimistic concurrency)")
         {
             BaseModel dbValues = (BaseModel)info.DatabaseValues.ToObject();
             BaseModel cValues = (BaseModel)info.CurrentValues.ToObject();

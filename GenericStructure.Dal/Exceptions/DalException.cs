@@ -1,5 +1,4 @@
-﻿using GenericStructure.Framework.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Exceptions
 {
-    public class DalException : BaseException
+    public class DalException : Exception
     {
-        public DalException() : base("") { }
+        public DalErrorType errorType;
+
+        public DalException(DalErrorType errorType, string message) : base(message) 
+        {
+            this.errorType = errorType;
+        }
     }
 }

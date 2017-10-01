@@ -1,5 +1,6 @@
 ﻿using GenericStructure.Dal.Context;
 using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
@@ -61,20 +62,22 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void FindGenericRepository_UnmappedModel()
         {
-            Exception ex = Assert.Throws<Exception>(() =>
+            DalException ex = Assert.Throws<DalException>(() =>
             {
                 this.repositoriesMapping.FindGenericRepository<BaseModel>();
             });
+            Assert.That(ex.errorType, Is.EqualTo(DalErrorType.RepositoryLocatorMissingMapping));
             Assert.That(ex.Message, Is.EqualTo("Mapping is missing for GenericStructure.Dal.Models.Base.BaseModel"));
         }
 
         [Test]
         public void FindRepository_UnmappedModel()
         {
-            Exception ex = Assert.Throws<Exception>(() =>
+            DalException ex = Assert.Throws<DalException>(() =>
             {
                 this.repositoriesMapping.FindRepository<IGenericRepository<BaseModel>, BaseModel>();
             });
+            Assert.That(ex.errorType, Is.EqualTo(DalErrorType.RepositoryLocatorMissingMapping));
             Assert.That(ex.Message, Is.EqualTo("Mapping is missing for GenericStructure.Dal.Models.Base.BaseModel"));
         }
     }

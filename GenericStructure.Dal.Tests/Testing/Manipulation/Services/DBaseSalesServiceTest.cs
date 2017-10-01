@@ -1,4 +1,5 @@
-﻿using GenericStructure.Dal.Exceptions.Custom;
+﻿using GenericStructure.Dal.Exceptions;
+using GenericStructure.Dal.Exceptions.Custom;
 using GenericStructure.Dal.Manipulation.Services;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
 using GenericStructure.Dal.Models;
@@ -110,15 +111,11 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
 
                 service1.Modify(article1);
 
-                //Assert.That(() => 
-                //{
-                //    service2.Modify(article2);
-                //}, Throws.Exception.TypeOf<DbUpdateConcurrencyException>());
-
-                Assert.Throws<DbUpdateConcurrencyException>(() =>
+                DalException ex = Assert.Throws<DalException>(() =>
                 {
                     service2.Modify(article2);
                 });
+                Assert.That(ex.errorType, Is.EqualTo(DalErrorType.BaseServiceDataConflictWithNoPolicy));
             }
         }
 
@@ -188,6 +185,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 {
                     service2.Modify(article2);
                 });
+                Assert.AreEqual(DalErrorType.BaseServiceDataConflictWithAskClientPolicy, dce.errorType);
 
                 Assert.IsInstanceOf(typeof(Article), dce.CurrentValues);
                 Assert.IsInstanceOf(typeof(Article), dce.DatabaseValues);

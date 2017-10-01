@@ -102,12 +102,6 @@
       <DependentUpon>201709212110136_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GenericStructure.Framework\GenericStructure.Framework.csproj">
-      <Project>{72cfd26b-5596-4a3f-81cd-5b19d50001c3}</Project>
-      <Name>GenericStructure.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,6 @@
 ﻿using GenericStructure.Dal.Context;
 using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Exceptions.Custom;
 using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
@@ -97,13 +98,15 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    // TODO : Throw proper DalException
-                    if (policy == DataConflictPolicy.NoPolicy) throw;
+                    if (policy == DataConflictPolicy.NoPolicy) 
+                        throw new DalException(DalErrorType.BaseServiceDataConflictWithNoPolicy, 
+                            "Data conflict (Optimistic concurrency)");
 
                     saveFailed = true;
 
                     DataConflictInfo info = OptimisticConcurrency.ApplyPolicy(policy, ex);
-                    if (info != null) throw new DataConflictException(info);
+                    if (info != null) 
+                        throw new DataConflictException(DalErrorType.BaseServiceDataConflictWithAskClientPolicy, info);
                 }
 
             } while (saveFailed);

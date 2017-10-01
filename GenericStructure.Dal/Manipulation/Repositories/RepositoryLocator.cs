@@ -1,4 +1,5 @@
-﻿using GenericStructure.Dal.Manipulation.Repositories.Contracts;
+﻿using GenericStructure.Dal.Exceptions;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
@@ -18,10 +19,8 @@ namespace GenericStructure.Dal.Manipulation.Repositories
 
             if (f == null)
             {
-                // TODO : Throw proper DalException
-                string message = string.Format("Mapping is missing for {0}",
-                        typeof(TEntity).FullName);
-                throw new Exception(message);
+                string message = string.Format("Mapping is missing for {0}", typeof(TEntity).FullName);
+                throw new DalException(DalErrorType.RepositoryLocatorMissingMapping, message);
             }
 
             var repo = f();
@@ -39,11 +38,10 @@ namespace GenericStructure.Dal.Manipulation.Repositories
             }
             catch (InvalidCastException)
             {
-                // TODO : Throw proper DalException
                 string message = string.Format("Registered repository for entity {0} does not implement {1}",
                     typeof(TEntity).FullName,
                     typeof(TRepo).FullName);
-                throw new Exception(message);
+                throw new DalException(DalErrorType.RepositoryLocatorInvalidCast, message);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using GenericStructure.Dal.Manipulation.Services.Configuration;
+﻿using GenericStructure.Dal.Exceptions;
+using GenericStructure.Dal.Manipulation.Services.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,10 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
 
         public void Validate(int expectedObjectsCount)
         {
-            // TODO : Throw proper DalException
             if (this.AlteredObjectsCount != expectedObjectsCount &&
                 this.AlteredIds.Count() != expectedObjectsCount)
-                throw new Exception("SaveResult : Incorrect AlteredObjectsCount/AlteredIds count");
+                throw new DalException(DalErrorType.SaveResultPersistenceValidationFailure, 
+                    "Persistence validation failure");
         }
     }
 }
