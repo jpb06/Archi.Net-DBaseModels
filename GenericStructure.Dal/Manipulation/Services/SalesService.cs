@@ -20,7 +20,7 @@ namespace GenericStructure.Dal.Manipulation.Services
         #region Alteration
         public int Create<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
-            SaveResult result = this.CreateFor(model);
+            SaveResult result = base.CreateFor(model);
 
             result.Validate(1);
 
@@ -29,14 +29,14 @@ namespace GenericStructure.Dal.Manipulation.Services
 
         public void Modify<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
-            SaveResult result = this.ModifyFor(model);
+            SaveResult result = base.ModifyFor(model);
 
             result.Validate(1);
         }
 
         public void Delete<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
-            SaveResult result = this.DeleteFor(model);
+            SaveResult result = base.DeleteFor(model);
 
             result.Validate(1);
         }
@@ -45,7 +45,7 @@ namespace GenericStructure.Dal.Manipulation.Services
         #region Data
         public TModel GetById<TModel>(int id) where TModel : BaseModel, ISalesModel
         {
-            return (TModel)this.GetByIdFor<TModel>(id);
+            return (TModel)base.GetByIdFor<TModel>(id);
         }
         #endregion
     }
