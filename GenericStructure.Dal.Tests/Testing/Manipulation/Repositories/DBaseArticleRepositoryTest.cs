@@ -1,11 +1,8 @@
-﻿using GenericStructure.Dal.Context;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Context.Specific.Main;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
-using GenericStructure.Dal.Manipulation.Services;
-using GenericStructure.Dal.Manipulation.Services.Base;
-using GenericStructure.Dal.Manipulation.Services.Configuration;
 using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Tests.Data.Database;
-using GenericStructure.Dal.Tests.Data.Database.Primitives;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,7 +17,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
     [TestFixture]
     public class DBaseArticleRepositoryTest
     {
-        private GenericStructureContext context;
+        private IDBContext context;
         private GenericRepository<Article> repository;
         private ConsolidatedDataSet dataSet;
         private Article addArticle;
@@ -33,7 +30,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [OneTimeSetUp]
         public void Init()
         {
-            this.context = new GenericStructureContext();
+            this.context = new GenericStructureTestContext();
             this.repository = new GenericRepository<Article>(this.context);
             this.dataSet.Initialize();
         }

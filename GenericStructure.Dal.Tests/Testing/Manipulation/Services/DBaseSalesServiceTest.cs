@@ -1,5 +1,5 @@
-﻿using GenericStructure.Dal.Context;
-using GenericStructure.Dal.Context.Contracts;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Context.Specific.Main;
 using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Exceptions.Custom;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
@@ -49,7 +49,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             };
 
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
-            container.Register<IDBContext, GenericStructureContext>(Lifestyle.Scoped);
+            container.Register<IDBContext, GenericStructureTestContext>(Lifestyle.Scoped);
             container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
             container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
             container.Register<SalesService>(Lifestyle.Scoped);

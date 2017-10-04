@@ -53,7 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\Contracts\IDBContext.cs" />
-    <Compile Include="Context\GenericStructureContext.cs" />
+    <Compile Include="Context\Base\BaseContext.cs" />
+    <Compile Include="Context\Specific\Main\GenericStructureContext.cs" />
+    <Compile Include="Context\Specific\Main\GenericStructureTestContext.cs" />
     <Compile Include="Exceptions\Custom\DataConflictException.cs" />
     <Compile Include="Exceptions\DalErrorType.cs" />
     <Compile Include="Exceptions\DalException.cs" />
@@ -80,11 +82,16 @@
     <Compile Include="Manipulation\Services\OrdersService.cs" />
     <Compile Include="Manipulation\Services\SalesService.cs" />
     <Compile Include="Manipulation\Services\UsersService.cs" />
-    <Compile Include="Migrations\201709212110136_Init.cs" />
-    <Compile Include="Migrations\201709212110136_Init.Designer.cs">
-      <DependentUpon>201709212110136_Init.cs</DependentUpon>
+    <Compile Include="Migrations\Production\201710041623377_Init.cs" />
+    <Compile Include="Migrations\Production\201710041623377_Init.Designer.cs">
+      <DependentUpon>201710041623377_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Production\ProdConfiguration.cs" />
+    <Compile Include="Migrations\Tests\201710041622483_Init.cs" />
+    <Compile Include="Migrations\Tests\201710041622483_Init.Designer.cs">
+      <DependentUpon>201710041622483_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Tests\TestsConfiguration.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Category.cs" />
@@ -101,15 +108,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709212110136_Init.resx">
-      <DependentUpon>201709212110136_Init.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GenericStructure.Framework\GenericStructure.Framework.csproj">
       <Project>{46fa2e29-d48d-47f7-832b-363a69085b53}</Project>
       <Name>GenericStructure.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\Production\201710041623377_Init.resx">
+      <DependentUpon>201710041623377_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\Tests\201710041622483_Init.resx">
+      <DependentUpon>201710041622483_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

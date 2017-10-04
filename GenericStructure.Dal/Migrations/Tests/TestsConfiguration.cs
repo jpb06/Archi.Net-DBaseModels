@@ -1,20 +1,22 @@
-namespace GenericStructure.Dal.Migrations
+namespace GenericStructure.Dal.Migrations.Tests
 {
-    using GenericStructure.Dal.Context;
+    using GenericStructure.Dal.Context.Specific;
+    using GenericStructure.Dal.Context.Specific.Main;
     using GenericStructure.Dal.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GenericStructureContext>
+    internal sealed class TestsConfiguration : DbMigrationsConfiguration<GenericStructureTestContext>
     {
-        public Configuration()
+        public TestsConfiguration()
         {
             AutomaticMigrationsEnabled = false;
+            MigrationsDirectory = @"Migrations\Tests";
         }
 
-        protected override void Seed(GenericStructureContext context)
+        protected override void Seed(GenericStructureTestContext context)
         {
             //  This method will be called after migrating to the latest version.
 

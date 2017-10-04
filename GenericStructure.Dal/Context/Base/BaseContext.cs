@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Context
+namespace GenericStructure.Dal.Context.Base
 {
     // https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell
     // Get-Help EntityFramework
@@ -16,9 +16,19 @@ namespace GenericStructure.Dal.Context
     // Add-Migration <name>
     // Update-Database
 
-    internal class GenericStructureContext : DbContext, IDBContext
+    // Enable-Migrations -MigrationsDirectory "Migrations\Tests" -ContextTypeName GenericStructure.Dal.Context.Specific.Main.GenericStructureTestContext
+    // Enable-Migrations -MigrationsDirectory "Migrations\Production" -ContextTypeName GenericStructure.Dal.Context.Specific.Main.GenericStructureContext
+
+    // Add-Migration -ConfigurationTypeName TestsConfiguration -Name <something>
+    // Add-Migration -ConfigurationTypeName ProdConfiguration -Name <something>
+
+    // Update-Database -ConfigurationTypeName TestsConfiguration
+    // Update-Database -ConfigurationTypeName ProdConfiguration
+
+    internal class BaseContext : DbContext, IDBContext
     {
-        public GenericStructureContext() : base("name=GenericStructureContextConnectionString") 
+        public BaseContext(string connectionString)
+            : base(connectionString)
         {
         }
 

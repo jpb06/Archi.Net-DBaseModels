@@ -1,4 +1,4 @@
-namespace GenericStructure.Dal.Migrations
+namespace GenericStructure.Dal.Migrations.Tests
 {
     using System;
     using System.Data.Entity.Migrations;
