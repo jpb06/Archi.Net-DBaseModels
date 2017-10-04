@@ -1,13 +1,21 @@
-﻿using GenericStructure.Dal.Exceptions;
+﻿using GenericStructure.Dal.Context;
+using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Exceptions.Custom;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
+using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
 using GenericStructure.Dal.Manipulation.Services;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
 using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Tests.Data.Database;
+using GenericStructure.Dal.Tests.Data.Database.Primitives;
 using NUnit.Framework;
+using SimpleInjector;
+using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,11 +26,19 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
     public class DBaseSalesServiceTest
     {
         private ConsolidatedDataSet dataSet;
+        private SqlConnection connection;
+        private ArticlesSqlHelper articlesSqlHelper;
         private Article article;
+
+        static readonly Container container = new Container();
 
         public DBaseSalesServiceTest()
         {
             this.dataSet = new ConsolidatedDataSet();
+
+            this.connection = new SqlConnection(DatabaseConfiguration.ConnectionString);
+            this.articlesSqlHelper = new ArticlesSqlHelper(this.connection);
+
             this.article = new Article
             {
                 IdCategory = 1,
@@ -31,17 +47,27 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 ImagesPath = Guid.NewGuid(),
                 Price = 100m
             };
+
+            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
+            container.Register<IDBContext, GenericStructureContext>(Lifestyle.Scoped);
+            container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
+            container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
+            container.Register<SalesService>(Lifestyle.Scoped);
+            container.Verify();
+
         }
 
         [OneTimeSetUp]
         public void Init()
         {
             this.dataSet.Initialize();
+            this.connection.Open();
         }
 
         [OneTimeTearDown]
         public void Cleanup()
         {
+            this.connection.Close();
             this.dataSet.Destroy();
             this.dataSet.Dispose();
         }
@@ -49,10 +75,11 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test, Order(1)]
         public void Db_Service_CreateArticle()
         {
-            using (SalesService service = new SalesService())
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
+                SalesService service = container.GetInstance<SalesService>();
+                
                 int result = service.Create(this.article);
-                this.article.Id = result;
 
                 Assert.Greater(this.article.Id, 0);
             }
@@ -61,8 +88,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test, Order(2)]
         public void Db_Service_GetArticleById()
         {
-            using (SalesService service = new SalesService())
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
+                SalesService service = container.GetInstance<SalesService>();
+                
                 Article article = service.GetById<Article>(this.article.Id);
 
                 Assert.IsNotNull(article);
@@ -77,8 +106,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             string newTitle = "New Title";
             this.article.Title = newTitle;
 
-            using (SalesService service = new SalesService())
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
+                SalesService service = container.GetInstance<SalesService>();
+
                 Assert.That(() =>
                 {
                     service.Modify(this.article);
@@ -89,8 +120,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test, Order(4)]
         public void Db_Service_DeleteArticle()
         {
-            using (SalesService service = new SalesService())
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
+                SalesService service = container.GetInstance<SalesService>();
+
                 Assert.That(() =>
                 {
                     service.Delete(this.article);
@@ -101,19 +134,19 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void Db_Concurrency_NoPolicy()
         {
-            using (SalesService service1 = new SalesService())
-            using (SalesService service2 = new SalesService(DataConflictPolicy.NoPolicy))
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
-                var article1 = service1.GetById<Article>(this.dataSet.ArticlesIds.First());
-                article1.Description = "User1 Description 1";
-                var article2 = service2.GetById<Article>(this.dataSet.ArticlesIds.First());
-                article2.Description = "User2 Description 1";
+                SalesService service = container.GetInstance<SalesService>();
+                service.SetPolicy(DataConflictPolicy.NoPolicy);
 
-                service1.Modify(article1);
+                var article = service.GetById<Article>(this.dataSet.ArticlesIds.First());
+                article.Title = "User1 Title 1";
+
+                this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 1");
 
                 DalException ex = Assert.Throws<DalException>(() =>
                 {
-                    service2.Modify(article2);
+                    service.Modify(article);
                 });
                 Assert.That(ex.errorType, Is.EqualTo(DalErrorType.BaseServiceDataConflictWithNoPolicy));
             }
@@ -122,68 +155,67 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void Db_Concurrency_ClientWins()
         {
-            using (SalesService service1 = new SalesService())
-            using (SalesService service2 = new SalesService(DataConflictPolicy.ClientWins))
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
-                var article1 = service1.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
-                article1.Description = "User1 Description 2";
+                SalesService service = container.GetInstance<SalesService>();
+                service.SetPolicy(DataConflictPolicy.ClientWins);
 
-                service1.Modify(article1);
+                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
+                article.Description = "User1 Title 2";
 
-                var article2 = service2.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
-                article2.Description = "User2 Description 2";
+                this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 2");
 
                 Assert.That(() =>
                 {
-                    service2.Modify(article2);
+                    service.Modify(article);
                 }, Throws.Nothing);
 
-                var updatedArticle = service2.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
+                var updatedArticle = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
 
-                Assert.AreEqual("User2 Description 2", updatedArticle.Description);
+                Assert.AreEqual("User1 Title 2", updatedArticle.Description);
             }
         }
 
         [Test]
         public void Db_Concurrency_DatabaseWins()
         {
-            using (SalesService service1 = new SalesService())
-            using (SalesService service2 = new SalesService(DataConflictPolicy.DatabaseWins))
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
-                var article1 = service1.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
-                article1.Description = "User1 Description 3";
-                var article2 = service2.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
-                article2.Description = "User2 Description 3";
+                SalesService service = container.GetInstance<SalesService>();
+                service.SetPolicy(DataConflictPolicy.DatabaseWins);
 
-                service1.Modify(article1);
+                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
+                article.Description = "User1 Title 3";
+
+                this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 3");
 
                 Assert.That(() =>
                 {
-                    service2.Modify(article2);
+                    service.Modify(article);
                 }, Throws.Nothing);
 
-                var updatedArticle = service2.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
+                var updatedArticle = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
 
-                Assert.AreEqual("User1 Description 3", updatedArticle.Description);
+                Assert.AreEqual("User2 Title 3", updatedArticle.Title);
             }
         }
 
         [Test]
         public void Db_Concurrency_AskClient()
         {
-            using (SalesService service1 = new SalesService())
-            using (SalesService service2 = new SalesService(DataConflictPolicy.AskClient))
+            using (ThreadScopedLifestyle.BeginScope(container))
             {
-                var article1 = service1.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(3));
-                article1.Description = "User1 Description 4";
-                var article2 = service2.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(3));
-                article2.Description = "User2 Description 4";
+                SalesService service = container.GetInstance<SalesService>();
+                service.SetPolicy(DataConflictPolicy.AskClient);
 
-                service1.Modify(article1);
+                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(3));
+                article.Title = "User1 Title 4";
+
+                this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 4");
 
                 DataConflictException dce = Assert.Throws<DataConflictException>(() =>
                 {
-                    service2.Modify(article2);
+                    service.Modify(article);
                 });
                 Assert.AreEqual(DalErrorType.BaseServiceDataConflictWithAskClientPolicy, dce.errorType);
 
@@ -193,11 +225,11 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 Article currentValues = (Article)dce.CurrentValues;
                 Article databaseValues = (Article)dce.DatabaseValues;
 
-                Assert.AreEqual(databaseValues.Id, article1.Id);
-                Assert.AreEqual(databaseValues.Description, article1.Description);
+                Assert.AreEqual(article.Id, databaseValues.Id);
+                Assert.AreEqual("User2 Title 4", databaseValues.Title);
 
-                Assert.AreEqual(currentValues.Id, article2.Id);
-                Assert.AreEqual(currentValues.Description, article2.Description);
+                Assert.AreEqual(article.Id, currentValues.Id);
+                Assert.AreEqual("User1 Title 4", currentValues.Title);
             }
         }
     }

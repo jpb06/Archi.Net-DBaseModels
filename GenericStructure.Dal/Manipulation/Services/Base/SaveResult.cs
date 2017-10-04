@@ -23,7 +23,7 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
 
         public void Validate(int expectedObjectsCount)
         {
-            if (this.AlteredObjectsCount != expectedObjectsCount &&
+            if (this.AlteredObjectsCount != expectedObjectsCount && 
                 this.AlteredIds.Count() != expectedObjectsCount)
                 throw new DalException(DalErrorType.SaveResultPersistenceValidationFailure, 
                     "Persistence validation failure");

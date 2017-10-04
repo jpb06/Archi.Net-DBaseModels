@@ -12,7 +12,6 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
     internal class OrdersRepository : GenericRepository<Order>, IOrdersRepository
     {
-        public OrdersRepository() : base() { }
         public OrdersRepository(IDBContext context) : base(context) { }
     }
 }

@@ -12,10 +12,14 @@ namespace GenericStructure.Dal.Exceptions
         //                                                                    Generic 
 
         // --------------------------------------------------------------------------
+        //                                                                    Context
+        #region ContextConfiguration
+        InvalidContextTarget,
+        #endregion
+        // --------------------------------------------------------------------------
         //                                                         Repositories stack 
-        #region RepositoryLocator
-        RepositoryLocatorMissingMapping,
-        RepositoryLocatorInvalidCast,
+        #region RepositoriesSet
+        RepositoriesSetMissingMapping,
         #endregion
         // --------------------------------------------------------------------------
         //                                                             Services stack

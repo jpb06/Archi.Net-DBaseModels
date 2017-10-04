@@ -1,7 +1,10 @@
-﻿using GenericStructure.Dal.Manipulation.Repositories;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Manipulation.Repositories;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Services.Base;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
 using GenericStructure.Dal.Manipulation.Services.Contracts;
+using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Models.Base;
 using GenericStructure.Dal.Models.Contracts;
 using System;
@@ -14,10 +17,21 @@ namespace GenericStructure.Dal.Manipulation.Services
 {
     public class SalesService : BaseService, ISalesService
     {
-        public SalesService() : base() { }
-        public SalesService(DataConflictPolicy policy) : base(policy) { }
+        public SalesService(IDBContext context,
+                            IArticlesRepository articlesRespository,
+                            ICategoriesRepository categoriesRespository)
+            : base(context) 
+        {
+            base.repositoriesSet.Register<Article, IArticlesRepository>(articlesRespository);
+            base.repositoriesSet.Register<Category, ICategoriesRepository>(categoriesRespository);
+        }
 
-        #region Alteration
+        public void SetPolicy(DataConflictPolicy policy)
+        {
+            base.policy = policy;
+        }
+
+        #region Generic
         public int Create<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
             SaveResult result = base.CreateFor(model);
@@ -40,12 +54,10 @@ namespace GenericStructure.Dal.Manipulation.Services
 
             result.Validate(1);
         }
-        #endregion
 
-        #region Data
         public TModel GetById<TModel>(int id) where TModel : BaseModel, ISalesModel
         {
-            return (TModel)base.GetByIdFor<TModel>(id);
+            return (TModel) base.GetByIdFor<TModel>(id);
         }
         #endregion
     }

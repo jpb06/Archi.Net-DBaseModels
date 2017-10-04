@@ -12,7 +12,6 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
     internal class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
     {
-        public CategoriesRepository() : base() { }
         public CategoriesRepository(IDBContext context) : base(context) { }
     }
 }

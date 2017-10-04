@@ -12,7 +12,6 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
     internal class ArticlesRepository : GenericRepository<Article>, IArticlesRepository
     {
-        public ArticlesRepository() : base() { }
         public ArticlesRepository(IDBContext context) : base(context) { }
     }
 }

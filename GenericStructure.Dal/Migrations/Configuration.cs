@@ -1,19 +1,20 @@
 namespace GenericStructure.Dal.Migrations
 {
+    using GenericStructure.Dal.Context;
     using GenericStructure.Dal.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GenericStructure.Dal.Context.GenericStructureContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<GenericStructureContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(GenericStructure.Dal.Context.GenericStructureContext context)
+        protected override void Seed(GenericStructureContext context)
         {
             //  This method will be called after migrating to the latest version.
 

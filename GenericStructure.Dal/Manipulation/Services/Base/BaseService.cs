@@ -3,6 +3,7 @@ using GenericStructure.Dal.Context.Contracts;
 using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Exceptions.Custom;
 using GenericStructure.Dal.Manipulation.Repositories;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Services.Configuration;
 using GenericStructure.Dal.Models.Base;
 using System;
@@ -14,31 +15,24 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.Base
 {
-    public class BaseService : IDisposable
+    public class BaseService
     {
         protected IDBContext context;
-        private RepositoriesMapping repositoriesMapping;
+        internal RepositoriesSet repositoriesSet;
         public DataConflictPolicy policy;
 
-        public BaseService()
+        public BaseService(IDBContext context)
         {
-            this.context = new GenericStructureContext();
-            this.repositoriesMapping = new RepositoriesMapping(this.context);
+            this.context = context;
+            this.repositoriesSet = new RepositoriesSet();
             this.policy = DataConflictPolicy.ClientWins;
-        }
-
-        public BaseService(DataConflictPolicy policy)
-        {
-            this.context = new GenericStructureContext();
-            this.repositoriesMapping = new RepositoriesMapping(this.context);
-            this.policy = policy;
         }
 
         #region Generic alteration
         protected SaveResult CreateFor<TDBaseModel>(TDBaseModel model)
             where TDBaseModel : BaseModel
         {
-            var repository = this.repositoriesMapping.FindGenericRepository<TDBaseModel>();
+            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
             repository.Insert(model);
 
             SaveResult result = this.Save(policy);
@@ -50,7 +44,7 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
         protected SaveResult ModifyFor<TDBaseModel>(TDBaseModel model)
             where TDBaseModel : BaseModel
         {
-            var repository = this.repositoriesMapping.FindGenericRepository<TDBaseModel>();
+            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
             repository.Update(model);
 
             SaveResult result = this.Save(policy);
@@ -62,7 +56,7 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
         protected SaveResult DeleteFor<TDBaseModel>(TDBaseModel model)
             where TDBaseModel : BaseModel
         {
-            var repository = this.repositoriesMapping.FindGenericRepository<TDBaseModel>();
+            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
             repository.Delete(model);
 
             SaveResult result = this.Save(policy);
@@ -76,7 +70,7 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
         protected TDBaseModel GetByIdFor<TDBaseModel>(int id)
             where TDBaseModel : BaseModel
         {
-            var repository = this.repositoriesMapping.FindGenericRepository<TDBaseModel>();
+            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
             TDBaseModel model = repository.GetByID(id);
 
             return model;
@@ -112,11 +106,6 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
             } while (saveFailed);
 
             return null;
-        }
-
-        public void Dispose()
-        {
-            this.context.Dispose();
         }
     }
 }

@@ -18,7 +18,9 @@ namespace GenericStructure.Dal.Context
 
     internal class GenericStructureContext : DbContext, IDBContext
     {
-        public GenericStructureContext() : base("name=GenericStructureContextConnectionString") { }
+        public GenericStructureContext() : base("name=GenericStructureContextConnectionString") 
+        {
+        }
 
         public virtual IDbSet<Customer> Customers { get; set; }
         public virtual IDbSet<Article> Articles { get; set; }

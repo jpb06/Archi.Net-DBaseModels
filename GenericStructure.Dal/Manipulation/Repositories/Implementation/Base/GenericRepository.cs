@@ -16,12 +16,6 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
         internal IDBContext context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository()
-        {
-            this.context = null;
-            this.dbSet = null;
-        }
-
         public GenericRepository(IDBContext context)
         {
             this.context = context;
@@ -71,9 +65,8 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
         public virtual void Delete(TEntity entityToDelete)
         {
             if (this.context.Entry(entityToDelete).State == EntityState.Detached)
-            {
                 this.dbSet.Attach(entityToDelete);
-            }
+            
             this.dbSet.Remove(entityToDelete);
         }
 

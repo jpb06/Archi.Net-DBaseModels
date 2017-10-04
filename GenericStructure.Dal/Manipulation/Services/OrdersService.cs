@@ -1,5 +1,7 @@
-﻿using GenericStructure.Dal.Manipulation.Repositories;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Base;
+using GenericStructure.Dal.Manipulation.Services.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,6 @@ namespace GenericStructure.Dal.Manipulation.Services
 {
     public class OrdersService : BaseService
     {
-        public OrdersService() : base() { }
+        public OrdersService(IDBContext context) : base(context) { }
     }
 }

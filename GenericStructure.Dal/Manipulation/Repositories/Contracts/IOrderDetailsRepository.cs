@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
 {
-    internal interface IOrderDetailsRepository : IGenericRepository<OrderDetail>
+    public interface IOrderDetailsRepository : IGenericRepository<OrderDetail>
     {
     }
 }

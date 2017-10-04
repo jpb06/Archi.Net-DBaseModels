@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
 {
-    internal interface IGenericRepository<TEntity> where TEntity : BaseModel
+    public interface IGenericRepository<TEntity> where TEntity : BaseModel
     {
         IEnumerable<TEntity> GetWithRawSql(string query, params object[] parameters);
         IEnumerable<TEntity> Get(

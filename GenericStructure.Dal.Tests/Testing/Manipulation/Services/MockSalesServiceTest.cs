@@ -1,4 +1,7 @@
-﻿using GenericStructure.Dal.Manipulation.Services;
+﻿using GenericStructure.Dal.Context.Contracts;
+using GenericStructure.Dal.Exceptions;
+using GenericStructure.Dal.Manipulation.Repositories.Contracts;
+using GenericStructure.Dal.Manipulation.Services;
 using GenericStructure.Dal.Manipulation.Services.Contracts;
 using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Tests.Data.Mocked;
@@ -28,7 +31,11 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 Price = 100m, 
                 ImagesPath = Guid.NewGuid()
             };
-            this.salesService = new SalesService();
+
+            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<IArticlesRepository> articleRepo = new Mock<IArticlesRepository>();
+            Mock<ICategoriesRepository> categoryRepo = new Mock<ICategoriesRepository>();
+            this.salesService = new SalesService(context.Object, articleRepo.Object, categoryRepo.Object);
         }
 
         [Test]
@@ -110,7 +117,5 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             Assert.AreEqual(expectedArticle.Description, article.Description);
             Assert.AreEqual(expectedArticle.ImagesPath, article.ImagesPath);
         }
-
-
     }
 }
