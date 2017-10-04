@@ -35,11 +35,7 @@ namespace GenericStructure.Dal.Manipulation.Repositories
             object repository;
             this.repositories.TryGetValue(typeof(TModel), out repository);
 
-            if (repository == null)
-            {
-                string message = string.Format("Instance is missing for {0}", typeof(TModel).FullName);
-                throw new DalException(DalErrorType.RepositoriesSetMissingMapping, message);
-            }
+            this.CheckRepository<TModel>(repository);
 
             return (IGenericRepository<TModel>)repository;
         }
@@ -51,13 +47,19 @@ namespace GenericStructure.Dal.Manipulation.Repositories
             object repository;
             this.repositories.TryGetValue(typeof(TModel), out repository);
 
-            if (repository == null) 
+            this.CheckRepository<TModel>(repository);
+
+            return (TSpecific)repository;
+        }
+
+        private void CheckRepository<TModel>(object repository)
+            where TModel : BaseModel
+        {
+            if (repository == null)
             {
                 string message = string.Format("Instance is missing for {0}", typeof(TModel).FullName);
                 throw new DalException(DalErrorType.RepositoriesSetMissingMapping, message);
             }
-
-            return (TSpecific)repository;
         } 
     }
 }
