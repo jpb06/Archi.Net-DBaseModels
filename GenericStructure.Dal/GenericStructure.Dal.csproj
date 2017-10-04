@@ -108,12 +108,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GenericStructure.Framework\GenericStructure.Framework.csproj">
-      <Project>{46fa2e29-d48d-47f7-832b-363a69085b53}</Project>
-      <Name>GenericStructure.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Migrations\Production\201710041623377_Init.resx">
       <DependentUpon>201710041623377_Init.cs</DependentUpon>
     </EmbeddedResource>
