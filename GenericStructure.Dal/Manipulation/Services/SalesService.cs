@@ -36,7 +36,7 @@ namespace GenericStructure.Dal.Manipulation.Services
         {
             SaveResult result = base.CreateFor(model);
 
-            result.Validate(1);
+            result.Validate(1, this.policy);
 
             return result.AlteredIds[0];
         }
@@ -45,14 +45,14 @@ namespace GenericStructure.Dal.Manipulation.Services
         {
             SaveResult result = base.ModifyFor(model);
 
-            result.Validate(1);
+            result.Validate(1, this.policy);
         }
 
         public void Delete<TModel>(TModel model) where TModel : BaseModel, ISalesModel
         {
             SaveResult result = base.DeleteFor(model);
 
-            result.Validate(1);
+            result.Validate(1, this.policy);
         }
 
         public TModel GetById<TModel>(int id) where TModel : BaseModel, ISalesModel

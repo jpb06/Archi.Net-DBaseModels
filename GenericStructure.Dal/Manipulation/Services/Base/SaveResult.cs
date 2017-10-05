@@ -21,12 +21,24 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
             this.DataConflictInfo = null;
         }
 
-        public void Validate(int expectedObjectsCount)
+        public void Validate(int expectedObjectsCount, DataConflictPolicy dataConflictPolicy)
         {
-            if (this.AlteredObjectsCount != expectedObjectsCount && 
-                this.AlteredIds.Count() != expectedObjectsCount)
+            if (dataConflictPolicy == DataConflictPolicy.DatabaseWins && 
+                (this.AlteredObjectsCount != 0 || this.AlteredIds.Count() != expectedObjectsCount)) 
+            {
+                throw new DalException(DalErrorType.SaveResultPersistenceValidationFailure,
+                                       "Persistence validation failure");
+            }
+
+
+            if (dataConflictPolicy == DataConflictPolicy.ClientWins && 
+                (this.AlteredObjectsCount != expectedObjectsCount || this.AlteredIds.Count() != expectedObjectsCount))
+            {
                 throw new DalException(DalErrorType.SaveResultPersistenceValidationFailure, 
-                    "Persistence validation failure");
+                                       "Persistence validation failure");
+            }
+
+            
         }
     }
 }
