@@ -1,5 +1,5 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Models.CoreBusiness;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,25 +9,9 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Context.Base
 {
-    // https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/powershell
-    // Get-Help EntityFramework
-
-    // Enable-Migrations
-    // Add-Migration <name>
-    // Update-Database
-
-    // Enable-Migrations -MigrationsDirectory "Migrations\Tests" -ContextTypeName GenericStructure.Dal.Context.Specific.Main.GenericStructureTestContext
-    // Enable-Migrations -MigrationsDirectory "Migrations\Production" -ContextTypeName GenericStructure.Dal.Context.Specific.Main.GenericStructureContext
-
-    // Add-Migration -ConfigurationTypeName TestsConfiguration -Name <something>
-    // Add-Migration -ConfigurationTypeName ProdConfiguration -Name <something>
-
-    // Update-Database -ConfigurationTypeName TestsConfiguration
-    // Update-Database -ConfigurationTypeName ProdConfiguration
-
-    internal class BaseContext : DbContext, IDBContext
+    internal class CoreBusinessBaseContext : DbContext, ICoreBusinessContext
     {
-        public BaseContext(string connectionString)
+        public CoreBusinessBaseContext(string connectionString)
             : base(connectionString)
         {
         }

@@ -1,13 +1,13 @@
 namespace GenericStructure.Dal.Migrations.Production
 {
-    using GenericStructure.Dal.Context.Specific.Main;
-    using GenericStructure.Dal.Models;
+    using GenericStructure.Dal.Context.EndObjects;
+    using GenericStructure.Dal.Models.CoreBusiness;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class ProdConfiguration : DbMigrationsConfiguration<GenericStructureContext>
+    internal sealed class ProdConfiguration : DbMigrationsConfiguration<CoreBusinessContext>
     {
         public ProdConfiguration()
         {
@@ -15,7 +15,7 @@ namespace GenericStructure.Dal.Migrations.Production
             MigrationsDirectory = @"Migrations\Production";
         }
 
-        protected override void Seed(GenericStructureContext context)
+        protected override void Seed(CoreBusinessContext context)
         {
             //  This method will be called after migrating to the latest version.
 

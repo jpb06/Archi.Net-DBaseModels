@@ -1,14 +1,13 @@
 namespace GenericStructure.Dal.Migrations.Tests
 {
-    using GenericStructure.Dal.Context.Specific;
-    using GenericStructure.Dal.Context.Specific.Main;
-    using GenericStructure.Dal.Models;
+    using GenericStructure.Dal.Context.EndObjects;
+    using GenericStructure.Dal.Models.CoreBusiness;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class TestsConfiguration : DbMigrationsConfiguration<GenericStructureTestContext>
+    internal sealed class TestsConfiguration : DbMigrationsConfiguration<CoreBusinessTestContext>
     {
         public TestsConfiguration()
         {
@@ -16,7 +15,7 @@ namespace GenericStructure.Dal.Migrations.Tests
             MigrationsDirectory = @"Migrations\Tests";
         }
 
-        protected override void Seed(GenericStructureTestContext context)
+        protected override void Seed(CoreBusinessTestContext context)
         {
             //  This method will be called after migrating to the latest version.
 
