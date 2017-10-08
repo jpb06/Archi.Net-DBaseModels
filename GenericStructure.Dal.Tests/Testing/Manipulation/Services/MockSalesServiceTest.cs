@@ -1,9 +1,8 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
-using GenericStructure.Dal.Manipulation.Services;
-using GenericStructure.Dal.Manipulation.Services.Contracts;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts;
+using GenericStructure.Dal.Models.CoreBusiness;
 using GenericStructure.Dal.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
@@ -32,7 +31,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 ImagesPath = Guid.NewGuid()
             };
 
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<IArticlesRepository> articleRepo = new Mock<IArticlesRepository>();
             Mock<ICategoriesRepository> categoryRepo = new Mock<ICategoriesRepository>();
             this.salesService = new SalesService(context.Object, articleRepo.Object, categoryRepo.Object);

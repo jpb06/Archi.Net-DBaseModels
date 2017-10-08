@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Data.Database
+namespace GenericStructure.Dal.Tests.Data.Database.DataSets
 {
-    internal class ConsolidatedDataSet : IDisposable
+    internal class PersistentCoreBusinessDataSet : IDisposable
     {
         private SqlConnection connection;
         private CategoriesSqlHelper categories;
@@ -17,12 +17,12 @@ namespace GenericStructure.Dal.Tests.Data.Database
         public List<int> ArticlesIds { get; private set; }
         public List<int> CategoriesIds { get; private set; }
 
-        public ConsolidatedDataSet() 
+        public PersistentCoreBusinessDataSet() 
         {
             this.ArticlesIds = new List<int>();
             this.CategoriesIds = new List<int>();
 
-            this.connection = new SqlConnection(DatabaseConfiguration.ConnectionString);
+            this.connection = new SqlConnection(DatabaseConfiguration.CoreBusinessConnectionString);
             this.connection.Open();
 
             this.categories = new CategoriesSqlHelper(this.connection);

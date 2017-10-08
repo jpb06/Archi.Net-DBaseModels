@@ -77,16 +77,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Data\Database\ConsolidatedDataSet.cs" />
+    <Compile Include="Data\Database\DataSets\PersistentCoreBusinessDataSet.cs" />
     <Compile Include="Data\Database\DatabaseConfiguration.cs" />
+    <Compile Include="Data\Database\DataSets\PersistentErrorsReportingDataSet.cs" />
+    <Compile Include="Data\Database\Primitives\ApplicationsSqlHelper.cs" />
     <Compile Include="Data\Database\Primitives\ArticlesSqlHelper.cs" />
     <Compile Include="Data\Database\Primitives\CategoriesSqlHelper.cs" />
+    <Compile Include="Data\Database\Primitives\ExceptionsSqlHelper.cs" />
     <Compile Include="Data\Mocked\VolatileDataset.cs" />
+    <Compile Include="Exceptions\ExceptionGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\Manipulation\Repositories\DBaseArticleRepositoryTest.cs" />
     <Compile Include="Testing\Manipulation\Repositories\MockArticleRepositoryTest.cs" />
     <Compile Include="Testing\Manipulation\Repositories\RepositoriesSetTest.cs" />
     <Compile Include="Testing\Manipulation\Services\DBaseSalesServiceTest.cs" />
+    <Compile Include="Testing\Manipulation\Services\DBaseErrorsReportingServiceTest.cs" />
     <Compile Include="Testing\Manipulation\Services\MockSalesServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>

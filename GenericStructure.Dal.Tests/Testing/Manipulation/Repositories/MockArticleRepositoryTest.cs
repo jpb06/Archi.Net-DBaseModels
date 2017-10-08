@@ -1,7 +1,6 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Models.CoreBusiness;
 using GenericStructure.Dal.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
@@ -25,7 +24,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void AddArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.Insert(It.IsAny<Article>()))
@@ -63,7 +62,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void UpdateArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.Update(It.IsAny<Article>()))
@@ -90,7 +89,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void DeleteArticle()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.Delete(It.IsAny<Article>()))
@@ -112,7 +111,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void DeleteArticleById()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.Delete(It.IsAny<int>()))
@@ -133,7 +132,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticleById()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.GetByID(It.IsInRange<int>(1, 6, Range.Inclusive)))
@@ -152,7 +151,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticleById_DoesntExist()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.GetByID(It.IsNotIn<int>(1, 2, 3, 4, 5, 6)))
@@ -168,10 +167,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticles_IdCategoryFiltered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
-            mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, null))
+            mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, string.Empty))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => store.Articles.Where(filter.Compile()));
@@ -186,10 +185,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticles_MinimumPriceFiltered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
-            mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, null))
+            mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(), null, string.Empty))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => store.Articles.Where(filter.Compile()));
@@ -204,10 +203,10 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticles_Ordered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
-            mockArticleRepository.Setup(r => r.Get(null, It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(), null))
+            mockArticleRepository.Setup(r => r.Get(null, It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(), string.Empty))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => orderBy.Invoke(store.Articles.AsQueryable()));
@@ -224,12 +223,12 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public void GetArticles_PriceFilteredAndOrdered()
         {
             VolatileDataset store = new VolatileDataset();
-            Mock<IDBContext> context = new Mock<IDBContext>();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
             mockArticleRepository.Setup(r => r.Get(It.IsAny<Expression<Func<Article, bool>>>(),
                                                    It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(),
-                                                   null))
+                                                   string.Empty))
                                  .Returns((Expression<Func<Article, bool>> filter,
                                            Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
                                            string includeProperties) => orderBy.Invoke(store.Articles.Where(filter.Compile()).AsQueryable()));

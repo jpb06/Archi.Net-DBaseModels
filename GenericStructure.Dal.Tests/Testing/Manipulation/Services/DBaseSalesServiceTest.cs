@@ -1,13 +1,15 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Context.Specific.Main;
+using GenericStructure.Dal.Context.EndObjects;
 using GenericStructure.Dal.Exceptions;
-using GenericStructure.Dal.Exceptions.Custom;
+using GenericStructure.Dal.Exceptions.Custom.Specific;
+using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
-using GenericStructure.Dal.Manipulation.Services;
-using GenericStructure.Dal.Manipulation.Services.Configuration;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
+using GenericStructure.Dal.Models.CoreBusiness;
 using GenericStructure.Dal.Tests.Data.Database;
+using GenericStructure.Dal.Tests.Data.Database.DataSets;
 using GenericStructure.Dal.Tests.Data.Database.Primitives;
 using NUnit.Framework;
 using SimpleInjector;
@@ -25,18 +27,18 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
     [TestFixture]
     public class DBaseSalesServiceTest
     {
-        private ConsolidatedDataSet dataSet;
+        private PersistentCoreBusinessDataSet dataSet;
         private SqlConnection connection;
         private ArticlesSqlHelper articlesSqlHelper;
         private Article article;
 
-        static readonly Container container = new Container();
+        private static readonly Container container = new Container();
 
         public DBaseSalesServiceTest()
         {
-            this.dataSet = new ConsolidatedDataSet();
+            this.dataSet = new PersistentCoreBusinessDataSet();
 
-            this.connection = new SqlConnection(DatabaseConfiguration.ConnectionString);
+            this.connection = new SqlConnection(DatabaseConfiguration.CoreBusinessConnectionString);
             this.articlesSqlHelper = new ArticlesSqlHelper(this.connection);
 
             this.article = new Article
@@ -49,7 +51,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             };
 
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
-            container.Register<IDBContext, GenericStructureTestContext>(Lifestyle.Scoped);
+            container.Register<ICoreBusinessContext, CoreBusinessTestContext>(Lifestyle.Scoped);
             container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
             container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
             container.Register<SalesService>(Lifestyle.Scoped);
@@ -73,7 +75,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test, Order(1)]
-        public void Db_Service_CreateArticle()
+        public void Db_SalesService_CreateArticle()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -86,7 +88,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test, Order(2)]
-        public void Db_Service_GetArticleById()
+        public void Db_SalesService_GetArticleById()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -101,7 +103,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test, Order(3)]
-        public void Db_Service_UpdateArticle()
+        public void Db_SalesService_UpdateArticle()
         {
             string newTitle = "New Title";
             this.article.Title = newTitle;
@@ -118,7 +120,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test, Order(4)]
-        public void Db_Service_DeleteArticle()
+        public void Db_SalesService_DeleteArticle()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -132,7 +134,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test]
-        public void Db_Concurrency_NoPolicy()
+        public void Db_SalesService_Concurrency_NoPolicy()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -153,7 +155,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test]
-        public void Db_Concurrency_ClientWins()
+        public void Db_SalesService_Concurrency_ClientWins()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -177,7 +179,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test]
-        public void Db_Concurrency_DatabaseWins()
+        public void Db_SalesService_Concurrency_DatabaseWins()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
@@ -201,7 +203,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         }
 
         [Test]
-        public void Db_Concurrency_AskClient()
+        public void Db_SalesService_Concurrency_AskClient()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {

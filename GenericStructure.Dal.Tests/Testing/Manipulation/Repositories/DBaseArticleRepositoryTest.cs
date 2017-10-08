@@ -1,8 +1,8 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Context.Specific.Main;
+using GenericStructure.Dal.Context.EndObjects;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
-using GenericStructure.Dal.Models;
-using GenericStructure.Dal.Tests.Data.Database;
+using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Dal.Tests.Data.Database.DataSets;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -17,20 +17,20 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
     [TestFixture]
     public class DBaseArticleRepositoryTest
     {
-        private IDBContext context;
+        private ICoreBusinessContext context;
         private GenericRepository<Article> repository;
-        private ConsolidatedDataSet dataSet;
+        private PersistentCoreBusinessDataSet dataSet;
         private Article addArticle;
 
         public DBaseArticleRepositoryTest() 
         {
-            this.dataSet = new ConsolidatedDataSet();
+            this.dataSet = new PersistentCoreBusinessDataSet();
         }
 
         [OneTimeSetUp]
         public void Init()
         {
-            this.context = new GenericStructureTestContext();
+            this.context = new CoreBusinessTestContext();
             this.repository = new GenericRepository<Article>(this.context);
             this.dataSet.Initialize();
         }

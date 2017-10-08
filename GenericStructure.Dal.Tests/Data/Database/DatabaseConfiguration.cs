@@ -9,12 +9,13 @@ namespace GenericStructure.Dal.Tests.Data.Database
 {
     public static class DatabaseConfiguration
     {
-        public static string ConnectionString
+        public static string CoreBusinessConnectionString
         {
-            get
-            {
-                return ConfigurationManager.ConnectionStrings["GenericStructureConnectionString"].ConnectionString;
-            }
+            get { return ConfigurationManager.ConnectionStrings["CoreBusinessTestDB"].ConnectionString; }
+        }
+        public static string ErrorsReportingConnectionString
+        {
+            get { return ConfigurationManager.ConnectionStrings["ErrorsReportingContext"].ConnectionString; }
         }
     }
 }
