@@ -1,7 +1,7 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Models.CoreBusiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,6 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
     internal class OrderDetailsRepository : GenericRepository<OrderDetail>, IOrderDetailsRepository
     {
-        public OrderDetailsRepository(IDBContext context) : base(context) { }
+        public OrderDetailsRepository(ICoreBusinessContext context) : base(context) { }
     }
 }

@@ -13,10 +13,10 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
 {
     internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseModel
     {
-        internal IDBContext context;
+        internal IDbContext context;
         internal DbSet<TEntity> dbSet;
 
-        public GenericRepository(IDBContext context)
+        public GenericRepository(IDbContext context)
         {
             this.context = context;
             this.dbSet = context.Set<TEntity>();
@@ -30,7 +30,7 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            string includeProperties = "")
         {
             IQueryable<TEntity> query = this.dbSet;
 

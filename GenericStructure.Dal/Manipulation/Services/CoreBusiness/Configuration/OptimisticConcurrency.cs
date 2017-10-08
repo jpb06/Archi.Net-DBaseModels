@@ -1,12 +1,11 @@
-﻿using GenericStructure.Dal.Context.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Manipulation.Services.Configuration
+namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration
 {
     public enum DataConflictPolicy { DatabaseWins, ClientWins, AskClient, NoPolicy }
 

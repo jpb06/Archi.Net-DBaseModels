@@ -1,5 +1,6 @@
 ﻿using GenericStructure.Dal.Exceptions;
-using GenericStructure.Dal.Manipulation.Services.Configuration;
+using GenericStructure.Dal.Exceptions.CustomTypes;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

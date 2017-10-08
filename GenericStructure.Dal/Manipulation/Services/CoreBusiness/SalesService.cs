@@ -1,23 +1,23 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Services.Base;
-using GenericStructure.Dal.Manipulation.Services.Configuration;
-using GenericStructure.Dal.Manipulation.Services.Contracts;
-using GenericStructure.Dal.Models;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
+using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts;
 using GenericStructure.Dal.Models.Base;
-using GenericStructure.Dal.Models.Contracts;
+using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Dal.Models.CoreBusiness.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Manipulation.Services
+namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness
 {
-    public class SalesService : BaseService, ISalesService
+    public class SalesService : BaseCoreBusinessService, ISalesService
     {
-        public SalesService(IDBContext context,
+        public SalesService(ICoreBusinessContext context,
                             IArticlesRepository articlesRespository,
                             ICategoriesRepository categoriesRespository)
             : base(context) 

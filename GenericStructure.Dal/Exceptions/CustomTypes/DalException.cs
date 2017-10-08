@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Exceptions
+namespace GenericStructure.Dal.Exceptions.CustomTypes
 {
     public class DalException : Exception
     {

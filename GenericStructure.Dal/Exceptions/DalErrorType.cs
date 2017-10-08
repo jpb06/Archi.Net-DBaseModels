@@ -12,6 +12,11 @@ namespace GenericStructure.Dal.Exceptions
         //                                                                    Generic 
 
         // --------------------------------------------------------------------------
+        //                                                                 Exceptions 
+        SqlError,
+        SqlUniqueConstraintViolation,
+        SqlConstraintCheckViolation,
+        // --------------------------------------------------------------------------
         //                                                                    Context
         #region ContextConfiguration
         InvalidContextTarget,

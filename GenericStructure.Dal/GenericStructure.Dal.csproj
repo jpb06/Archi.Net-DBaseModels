@@ -52,13 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\Contracts\IDBContext.cs" />
-    <Compile Include="Context\Base\BaseContext.cs" />
-    <Compile Include="Context\Specific\Main\GenericStructureContext.cs" />
-    <Compile Include="Context\Specific\Main\GenericStructureTestContext.cs" />
-    <Compile Include="Exceptions\Custom\DataConflictException.cs" />
+    <Compile Include="Context\Contracts\ICoreBusinessContext.cs" />
+    <Compile Include="Context\Base\CoreBusinessBaseContext.cs" />
+    <Compile Include="Context\Contracts\IDbContext.cs" />
+    <Compile Include="Context\EndObjects\CoreBusinessContext.cs" />
+    <Compile Include="Context\EndObjects\CoreBusinessTestContext.cs" />
+    <Compile Include="Context\EndObjects\ErrorsReportingContext.cs" />
+    <Compile Include="Context\Contracts\IErrorsReportingContext.cs" />
+    <Compile Include="Exceptions\CustomTypes\Specific\DataConflictException.cs" />
     <Compile Include="Exceptions\DalErrorType.cs" />
-    <Compile Include="Exceptions\DalException.cs" />
+    <Compile Include="Exceptions\CustomTypes\DalException.cs" />
+    <Compile Include="Exceptions\ExceptionsHelper.cs" />
     <Compile Include="Manipulation\Repositories\Contracts\IArticlesRepository.cs" />
     <Compile Include="Manipulation\Repositories\Contracts\ICategoriesRepository.cs" />
     <Compile Include="Manipulation\Repositories\Contracts\ICustomersRepository.cs" />
@@ -73,15 +77,23 @@
     <Compile Include="Manipulation\Repositories\Implementation\Specific\OrdersRepository.cs" />
     <Compile Include="Manipulation\Repositories\RepositoriesSet.cs" />
     <Compile Include="Manipulation\Services\Base\BaseService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Base\BaseCoreBusinessService.cs" />
     <Compile Include="Manipulation\Services\Base\SaveResult.cs" />
-    <Compile Include="Manipulation\Services\Configuration\OptimisticConcurrency.cs" />
-    <Compile Include="Manipulation\Services\Configuration\DataConflictInfo.cs" />
-    <Compile Include="Manipulation\Services\Contracts\IOrdersService.cs" />
-    <Compile Include="Manipulation\Services\Contracts\ISalesService.cs" />
-    <Compile Include="Manipulation\Services\Contracts\IUsersService.cs" />
-    <Compile Include="Manipulation\Services\OrdersService.cs" />
-    <Compile Include="Manipulation\Services\SalesService.cs" />
-    <Compile Include="Manipulation\Services\UsersService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Configuration\OptimisticConcurrency.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Configuration\DataConflictInfo.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Contracts\IOrdersService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Contracts\ISalesService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\Contracts\IUsersService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\OrdersService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\SalesService.cs" />
+    <Compile Include="Manipulation\Services\CoreBusiness\UsersService.cs" />
+    <Compile Include="Manipulation\Services\ErrorsReporting\Contracts\IErrorsReportingService.cs" />
+    <Compile Include="Manipulation\Services\ErrorsReporting\ErrorsReportingService.cs" />
+    <Compile Include="Migrations\ErrorsReporting\201710080956445_Init.cs" />
+    <Compile Include="Migrations\ErrorsReporting\201710080956445_Init.Designer.cs">
+      <DependentUpon>201710080956445_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ErrorsReporting\ErrorsReportingConfiguration.cs" />
     <Compile Include="Migrations\Production\201710041623377_Init.cs" />
     <Compile Include="Migrations\Production\201710041623377_Init.Designer.cs">
       <DependentUpon>201710041623377_Init.cs</DependentUpon>
@@ -92,15 +104,17 @@
       <DependentUpon>201710041622483_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Tests\TestsConfiguration.cs" />
-    <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\CoreBusiness\Article.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Contracts\ICustomerModel.cs" />
-    <Compile Include="Models\Contracts\IOrdersModel.cs" />
-    <Compile Include="Models\Contracts\ISalesModel.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\CoreBusiness\Category.cs" />
+    <Compile Include="Models\CoreBusiness\Contracts\ICustomerModel.cs" />
+    <Compile Include="Models\CoreBusiness\Contracts\IOrdersModel.cs" />
+    <Compile Include="Models\CoreBusiness\Contracts\ISalesModel.cs" />
+    <Compile Include="Models\CoreBusiness\Customer.cs" />
+    <Compile Include="Models\CoreBusiness\Order.cs" />
+    <Compile Include="Models\CoreBusiness\OrderDetail.cs" />
+    <Compile Include="Models\ErrorsReporting\ErrorReportApplication.cs" />
+    <Compile Include="Models\ErrorsReporting\ErrorReportException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +122,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\ErrorsReporting\201710080956445_Init.resx">
+      <DependentUpon>201710080956445_Init.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\Production\201710041623377_Init.resx">
       <DependentUpon>201710041623377_Init.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,6 +132,7 @@
       <DependentUpon>201710041622483_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

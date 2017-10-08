@@ -1,9 +1,6 @@
-﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Exceptions;
+﻿using GenericStructure.Dal.Exceptions;
+using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
-using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
-using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
-using GenericStructure.Dal.Models;
 using GenericStructure.Dal.Models.Base;
 using System;
 using System.Collections.Generic;
@@ -22,9 +19,9 @@ namespace GenericStructure.Dal.Manipulation.Repositories
             this.repositories = new Dictionary<Type, object>();
         }
 
-        public void Register<TModel, TSpecific>(TSpecific instance) 
+        public void Register<TModel, TRepository>(TRepository instance) 
             where TModel : BaseModel
-            where TSpecific : class, IGenericRepository<TModel>
+            where TRepository : class, IGenericRepository<TModel>
         {
             this.repositories.Add(typeof(TModel), instance);
         }

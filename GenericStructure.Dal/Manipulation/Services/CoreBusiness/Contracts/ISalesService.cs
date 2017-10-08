@@ -1,12 +1,12 @@
 ﻿using GenericStructure.Dal.Models.Base;
-using GenericStructure.Dal.Models.Contracts;
+using GenericStructure.Dal.Models.CoreBusiness.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Manipulation.Services.Contracts
+namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts
 {
     public interface ISalesService
     {

@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models;
+﻿using GenericStructure.Dal.Models.CoreBusiness;
 using System;
 using System.Collections.Generic;
 using System.Linq;
