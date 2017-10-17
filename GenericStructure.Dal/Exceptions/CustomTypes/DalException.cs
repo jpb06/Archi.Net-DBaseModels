@@ -8,9 +8,9 @@ namespace GenericStructure.Dal.Exceptions.CustomTypes
 {
     public class DalException : Exception
     {
-        public DalErrorType errorType;
+        public string errorType;
 
-        public DalException(DalErrorType errorType, string message) : base(message) 
+        public DalException(string errorType, string message) : base(message) 
         {
             this.errorType = errorType;
         }

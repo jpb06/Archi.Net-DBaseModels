@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Exceptions
 {
-    public enum DalErrorType
+    public class DalErrorType
     {
         // --------------------------------------------------------------------------
         //                                                                    Generic 
 
         // --------------------------------------------------------------------------
         //                                                                 Exceptions 
-        SqlError,
-        SqlUniqueConstraintViolation,
-        SqlConstraintCheckViolation,
+        public static readonly string SqlError = "Dal.SqlError";
+        public static readonly string SqlUniqueConstraintViolation = "Dal.SqlUniqueConstraintViolation";
+        public static readonly string SqlConstraintCheckViolation = "Dal.SqlConstraintCheckViolation";
         // --------------------------------------------------------------------------
         //                                                         Repositories stack 
         #region RepositoriesSet
-        RepositoriesSetMissingMapping,
+        public static readonly string RepositoriesSetMissingMapping = "Dal.RepositoriesSetMissingMapping";
         #endregion
         // --------------------------------------------------------------------------
         //                                                             Services stack
         #region BaseService
-        BaseServiceDataConflictWithNoPolicy,
-        BaseServiceDataConflictWithAskClientPolicy,
+        public static readonly string BaseServiceDataConflictWithNoPolicy = "Dal.BaseServiceDataConflictWithNoPolicy";
+        public static readonly string BaseServiceDataConflictWithAskClientPolicy = "Dal.BaseServiceDataConflictWithAskClientPolicy";
         #endregion
 
         #region SaveResult
-        SaveResultPersistenceValidationFailure,
+        public static readonly string SaveResultPersistenceValidationFailure = "Dal.SaveResultPersistenceValidationFailure";
         #endregion
 
         #region SalesService
