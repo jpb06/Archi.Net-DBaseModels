@@ -19,7 +19,7 @@ namespace GenericStructure.Business.ErrorsReporting
             this.service = service;
         }
 
-        public void LogError(Exception exception, AssemblyName AssemblyInfos, string errorCodeFullyQualifiedName) 
+        public void LogError(Exception exception, AssemblyName AssemblyInfos, string errorCode) 
         {
             string applicationName = AssemblyInfos.Name;
             string applicationVersion = AssemblyInfos.Version.ToString();
@@ -28,7 +28,7 @@ namespace GenericStructure.Business.ErrorsReporting
             if(application == null)
                 application = this.service.CreateApplication(applicationName, applicationVersion);
 
-            this.service.LogException(application.Id, exception);
+            this.service.LogException(application.Id, exception, errorCode);
         }
     }
 }

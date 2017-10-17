@@ -84,7 +84,8 @@
     <Compile Include="Data\Database\Primitives\ArticlesSqlHelper.cs" />
     <Compile Include="Data\Database\Primitives\CategoriesSqlHelper.cs" />
     <Compile Include="Data\Database\Primitives\ExceptionsSqlHelper.cs" />
-    <Compile Include="Data\Mocked\VolatileDataset.cs" />
+    <Compile Include="Data\Mocked\VolatileCoreBusinessDataset.cs" />
+    <Compile Include="Data\Mocked\VolatileErrorsReportingDataset.cs" />
     <Compile Include="Exceptions\ExceptionGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\Manipulation\Repositories\DBaseArticleRepositoryTest.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Testing\Manipulation\Repositories\RepositoriesSetTest.cs" />
     <Compile Include="Testing\Manipulation\Services\DBaseSalesServiceTest.cs" />
     <Compile Include="Testing\Manipulation\Services\DBaseErrorsReportingServiceTest.cs" />
+    <Compile Include="Testing\Manipulation\Services\MockErrorsReportingServiceTest.cs" />
     <Compile Include="Testing\Manipulation\Services\MockSalesServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>

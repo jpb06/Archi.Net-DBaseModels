@@ -23,7 +23,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void AddArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -61,7 +61,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void UpdateArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -88,7 +88,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void DeleteArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -110,7 +110,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void DeleteArticleById()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -131,7 +131,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticleById()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -150,7 +150,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticleById_DoesntExist()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -166,7 +166,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticles_IdCategoryFiltered()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -184,7 +184,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticles_MinimumPriceFiltered()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -202,7 +202,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticles_Ordered()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
@@ -222,7 +222,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         [Test]
         public void GetArticles_PriceFilteredAndOrdered()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 

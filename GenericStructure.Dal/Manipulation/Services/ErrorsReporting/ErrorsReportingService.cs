@@ -44,9 +44,9 @@ namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting
             };
 
             this.applicationsRepository.Insert(application);
-            base.Save(base.policy);
+            SaveResult result = base.Save(base.policy);
 
-            return application;
+            return result.AlteredObjectsCount == 1 ? application : null;
         }
 
         public ErrorReportApplication GetApplication(string name, string version)
@@ -57,7 +57,7 @@ namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting
             return application;
         }
 
-        public int? LogException(int idApplication, Exception exception)
+        public int? LogException(int idApplication, Exception exception, string errorCode)
         {
             if (exception == null) return null;
 
@@ -72,13 +72,15 @@ namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting
             exceptionModel.StackTrace = exception.StackTrace;
             exceptionModel.HelpLink = exception.HelpLink;
             exceptionModel.Date = DateTime.Now;
-            exceptionModel.IdInnerException = this.LogException(idApplication, exception.InnerException);
+            exceptionModel.IdInnerException = this.LogException(idApplication, exception.InnerException, errorCode);
+
+            exceptionModel.CustomErrorType = errorCode;
 
             this.exceptionRepository.Insert(exceptionModel);
 
-            base.Save(base.policy);
+            SaveResult result = base.Save(base.policy);
 
-            return exceptionModel.Id;
+            return result.AlteredObjectsCount == 1 ? exceptionModel.Id : (int?)null;
         }
     }
 }

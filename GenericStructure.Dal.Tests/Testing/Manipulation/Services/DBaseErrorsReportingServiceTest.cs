@@ -69,7 +69,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             {
                 ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
 
-                ErrorReportApplication result = service.CreateApplication("TestApplication", "1.0.0.0");
+                ErrorReportApplication result = service.CreateApplication("TestApplication", "a.a.a.a");
 
                 Assert.IsNotNull(result);
                 Assert.Greater(result.Id, 0);
@@ -87,7 +87,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
 
                 DalException ex = Assert.Throws<DalException>(() =>
                 {
-                    service.CreateApplication("TestApplicationAlreadyExisting", "1.0.0.0");
+                    service.CreateApplication("TestApplicationAlreadyExisting", "a.a.a.a");
                 });
                 Assert.That(ex.errorType, Is.EqualTo(DalErrorType.SqlUniqueConstraintViolation));
             }
@@ -100,11 +100,11 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             {
                 ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
 
-                ErrorReportApplication application = service.GetApplication("TestApplicationAlreadyExisting", "1.0.0.0");
+                ErrorReportApplication application = service.GetApplication("TestApplicationAlreadyExisting", "a.a.a.a");
 
                 Assert.IsNotNull(application);
                 Assert.Greater(application.Id, 0);
-                Assert.AreEqual("TestApplicationAlreadyExisting", application.Name);
+                Assert.AreEqual(new DateTime(2000, 1, 1), application.FirstRunDate);
             }
         }
 
@@ -118,7 +118,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 ErrorReportApplication application = null;
                 Assert.That(() =>
                 {
-                    application = service.GetApplication("TestApplicationAlreadyExisting", "1.1.0.0");
+                    application = service.GetApplication("TestApplicationAlreadyExisting", "z.z.z.z");
                 }, Throws.Nothing);
 
                 Assert.IsNull(application);
@@ -141,7 +141,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                     int? id = null;
                     Assert.That(() =>
                     {
-                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception);
+                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception, "ErrorType.Specific");
                     }, Throws.Nothing);
 
                     Assert.IsNotNull(id);
@@ -169,7 +169,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                     int? id = null;
                     Assert.That(() =>
                     {
-                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception);
+                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception, "ErrorType.Specific");
                     }, Throws.Nothing);
 
                     Assert.IsNotNull(id);

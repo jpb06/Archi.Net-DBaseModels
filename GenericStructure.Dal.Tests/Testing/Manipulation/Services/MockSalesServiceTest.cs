@@ -40,7 +40,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void AddArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
 
             mockSalesService.Setup(s => s.Create(It.Is<Article>(a => a.Title == "Added title")))
@@ -55,7 +55,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void UpdateArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
 
             mockSalesService.Setup(r => r.Modify(It.IsAny<Article>()))
@@ -81,7 +81,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void DeleteArticle()
         {
-            VolatileDataset store = new VolatileDataset();
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
 
             mockSalesService.Setup(r => r.Delete(It.IsAny<Article>()))
@@ -102,7 +102,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
         [Test]
         public void GetArticle()
         {
-            VolatileDataset store = new VolatileDataset(); 
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset(); 
             Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
 
             mockSalesService.Setup(r => r.GetById<Article>(It.IsInRange<int>(1, 6, Range.Inclusive)))

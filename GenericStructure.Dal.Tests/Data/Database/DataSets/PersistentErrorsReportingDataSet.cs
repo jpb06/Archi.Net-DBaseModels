@@ -31,8 +31,11 @@ namespace GenericStructure.Dal.Tests.Data.Database.DataSets
 
         public void Initialize() 
         {
-            this.ApplicationsIds.Add(this.applications.Create("TestApplicationAlreadyExisting", "1.0.0.0", DateTime.Now));
-            this.ApplicationsIds.Add(this.applications.Create("TestApplicationForVersion", "1.0.0.0", DateTime.Now));
+            this.ApplicationsIds.Add(this.applications.Create("TestApplicationAlreadyExisting", "a.a.a.a", new DateTime(2000, 1, 1)));
+            this.ApplicationsIds.Add(this.applications.Create("TestApplicationForVersion", "a.a.a.a", new DateTime(3000, 1, 1)));
+            this.ApplicationsIds.Add(this.applications.Create("TestApplicationWithVersion1", "a.a.a.b", new DateTime(2011, 1, 1)));
+            this.ApplicationsIds.Add(this.applications.Create("TestApplicationWithVersion2", "a.a.a.b", new DateTime(2012, 1, 1)));
+            this.ApplicationsIds.Add(this.applications.Create("TestApplicationWithVersion3", "a.a.a.b", new DateTime(1990, 1, 1)));
         }
 
         public void Destroy() 

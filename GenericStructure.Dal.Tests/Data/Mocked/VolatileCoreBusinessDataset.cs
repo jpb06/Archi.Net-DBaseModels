@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Data.Mocked
 {
-    public class VolatileDataset
+    public class VolatileCoreBusinessDataset
     {
         public List<Article> Articles { get; set; }
         public List<Category> Categories { get; set; }
@@ -15,7 +15,7 @@ namespace GenericStructure.Dal.Tests.Data.Mocked
         public List<OrderDetail> OrderDetails { get; set; }
         public List<Order> Orders { get; set; }
 
-        public VolatileDataset()
+        public VolatileCoreBusinessDataset()
         {
             this.Articles = new List<Article>();
             this.Categories = new List<Category>();
