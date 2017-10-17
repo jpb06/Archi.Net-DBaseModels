@@ -16,7 +16,7 @@ namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base
     {
         internal RepositoriesSet repositoriesSet;
 
-        public BaseCoreBusinessService(IDbContext context) : base(context)
+        public BaseCoreBusinessService(ICoreBusinessContext context) : base(context)
         {
             base.context = context;
             base.policy = DataConflictPolicy.ClientWins;

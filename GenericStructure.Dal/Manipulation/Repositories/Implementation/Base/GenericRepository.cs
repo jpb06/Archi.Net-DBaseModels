@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
 {
-    internal class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseModel
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseModel
     {
         internal IDbContext context;
         internal DbSet<TEntity> dbSet;

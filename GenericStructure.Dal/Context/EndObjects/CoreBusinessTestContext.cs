@@ -22,7 +22,7 @@ namespace GenericStructure.Dal.Context.EndObjects
 
     // Update-Database -ConfigurationTypeName TestsConfiguration
 
-    internal class CoreBusinessTestContext : CoreBusinessBaseContext
+    public class CoreBusinessTestContext : CoreBusinessBaseContext
     {
         public CoreBusinessTestContext() : base("name=CoreBusinessTestContext") { }
     }

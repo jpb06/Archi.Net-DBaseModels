@@ -22,7 +22,7 @@ namespace GenericStructure.Dal.Context.EndObjects
 
     // Update-Database -ConfigurationTypeName ProdConfiguration
 
-    internal class CoreBusinessContext : CoreBusinessBaseContext
+    public class CoreBusinessContext : CoreBusinessBaseContext
     {
         public CoreBusinessContext() : base("name=CoreBusinessContext") { }
     }

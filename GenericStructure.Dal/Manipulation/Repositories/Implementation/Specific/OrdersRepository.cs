@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
-    internal class OrdersRepository : GenericRepository<Order>, IOrdersRepository
+    public class OrdersRepository : GenericRepository<Order>, IOrdersRepository
     {
         public OrdersRepository(ICoreBusinessContext context) : base(context) { }
     }

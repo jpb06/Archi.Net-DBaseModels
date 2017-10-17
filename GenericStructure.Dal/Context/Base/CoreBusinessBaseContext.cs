@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Context.Base
 {
-    internal class CoreBusinessBaseContext : DbContext, ICoreBusinessContext
+    public class CoreBusinessBaseContext : DbContext, ICoreBusinessContext
     {
         public CoreBusinessBaseContext(string connectionString)
             : base(connectionString)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific
 {
-    internal class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
+    public class CategoriesRepository : GenericRepository<Category>, ICategoriesRepository
     {
         public CategoriesRepository(ICoreBusinessContext context) : base(context) { }
     }
