@@ -3,7 +3,7 @@ using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts;
 using GenericStructure.Dal.Models.CoreBusiness;
-using GenericStructure.Dal.Tests.Data.Mocked;
+using GenericStructure.Shared.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
 using System;

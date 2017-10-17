@@ -2,7 +2,7 @@
 using GenericStructure.Dal.Context.EndObjects;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
 using GenericStructure.Dal.Models.CoreBusiness;
-using GenericStructure.Dal.Tests.Data.Database.DataSets;
+using GenericStructure.Shared.Tests.Data.Database.DataSets;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

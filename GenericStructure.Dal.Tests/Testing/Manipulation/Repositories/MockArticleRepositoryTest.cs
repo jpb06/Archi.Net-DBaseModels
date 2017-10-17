@@ -1,7 +1,7 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
 using GenericStructure.Dal.Models.CoreBusiness;
-using GenericStructure.Dal.Tests.Data.Mocked;
+using GenericStructure.Shared.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
 using System;

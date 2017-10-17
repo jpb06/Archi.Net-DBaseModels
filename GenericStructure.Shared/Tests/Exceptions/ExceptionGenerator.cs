@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Exceptions
+namespace GenericStructure.Shared.Tests.Exceptions
 {
     public static class ExceptionGenerator
     {

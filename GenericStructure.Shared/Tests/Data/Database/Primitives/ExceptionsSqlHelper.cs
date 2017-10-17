@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Data.Database.Primitives
+namespace GenericStructure.Shared.Tests.Data.Database.Primitives
 {
-    internal class ExceptionsSqlHelper
+    public class ExceptionsSqlHelper
     {        
         private SqlConnection connection;
 

@@ -77,16 +77,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Data\Database\DataSets\PersistentCoreBusinessDataSet.cs" />
-    <Compile Include="Data\Database\DatabaseConfiguration.cs" />
-    <Compile Include="Data\Database\DataSets\PersistentErrorsReportingDataSet.cs" />
-    <Compile Include="Data\Database\Primitives\ApplicationsSqlHelper.cs" />
-    <Compile Include="Data\Database\Primitives\ArticlesSqlHelper.cs" />
-    <Compile Include="Data\Database\Primitives\CategoriesSqlHelper.cs" />
-    <Compile Include="Data\Database\Primitives\ExceptionsSqlHelper.cs" />
-    <Compile Include="Data\Mocked\VolatileCoreBusinessDataset.cs" />
-    <Compile Include="Data\Mocked\VolatileErrorsReportingDataset.cs" />
-    <Compile Include="Exceptions\ExceptionGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Testing\Manipulation\Repositories\DBaseArticleRepositoryTest.cs" />
     <Compile Include="Testing\Manipulation\Repositories\MockArticleRepositoryTest.cs" />
@@ -104,6 +94,10 @@
     <ProjectReference Include="..\GenericStructure.Dal\GenericStructure.Dal.csproj">
       <Project>{d33f958c-36d0-4723-a6dd-ebb269a0f67a}</Project>
       <Name>GenericStructure.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GenericStructure.Shared\GenericStructure.Shared.csproj">
+      <Project>{0647171d-06c6-41c5-be29-a585dc5e81ed}</Project>
+      <Name>GenericStructure.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

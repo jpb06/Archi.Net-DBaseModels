@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Data.Database
+namespace GenericStructure.Shared.Tests.Data.Database
 {
     public static class DatabaseConfiguration
     {

@@ -2,8 +2,8 @@
 using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Services.ErrorsReporting.Contracts;
 using GenericStructure.Dal.Models.ErrorsReporting;
-using GenericStructure.Dal.Tests.Data.Mocked;
-using GenericStructure.Dal.Tests.Exceptions;
+using GenericStructure.Shared.Tests.Data.Mocked;
+using GenericStructure.Shared.Tests.Exceptions;
 using Moq;
 using NUnit.Framework;
 using System;

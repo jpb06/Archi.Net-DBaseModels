@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Tests.Data.Database.Primitives;
+﻿using GenericStructure.Shared.Tests.Data.Database.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GenericStructure.Dal.Tests.Data.Database.DataSets
+namespace GenericStructure.Shared.Tests.Data.Database.DataSets
 {
     public class PersistentErrorsReportingDataSet : IDisposable
     {
