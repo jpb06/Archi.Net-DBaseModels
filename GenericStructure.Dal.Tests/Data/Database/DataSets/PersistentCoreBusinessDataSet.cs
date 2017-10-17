@@ -33,10 +33,10 @@ namespace GenericStructure.Dal.Tests.Data.Database.DataSets
         {
             this.CategoriesIds.Add(this.categories.Create("Test Category 1"));
 
-            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 1", "Description 1", Guid.NewGuid(), 100.0m));
-            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 2", "Description 2", Guid.NewGuid(), 500.0m));
-            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 3", "Description 3", Guid.NewGuid(), 1000.0m));
-            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 4", "Description 4", Guid.NewGuid(), 1500.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 1", "Description 1", Guid.NewGuid(), 100000.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 2", "Description 2", Guid.NewGuid(), 500000.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 3", "Description 3", Guid.NewGuid(), 1000000.0m));
+            this.ArticlesIds.Add(this.articles.Create(this.CategoriesIds.ElementAt(0), "Test Article 4", "Description 4", Guid.NewGuid(), 1500000.0m));
         }
 
         public void Destroy() 

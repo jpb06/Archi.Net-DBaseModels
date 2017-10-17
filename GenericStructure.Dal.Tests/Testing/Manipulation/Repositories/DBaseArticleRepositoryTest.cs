@@ -101,6 +101,66 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
             Assert.AreEqual(1, result);
         }
 
-        //sql test
+        [Test]
+        public void Db_Repository_DeleteById()
+        {
+            Article article = new Article
+            {
+                IdCategory = this.dataSet.CategoriesIds.ElementAt(0),
+                Title = "Article to delete",
+                Description = "Description",
+                ImagesPath = Guid.NewGuid(),
+                Price = 1.0m
+            };
+
+            this.repository.Insert(article);
+            this.context.SaveChanges();
+
+            this.repository.Delete(article.Id);
+            this.context.SaveChanges();
+
+            Article deletedArticle = this.repository.GetByID(article.Id);
+
+            Assert.IsNull(deletedArticle);
+        }
+
+        [Test]
+        public void Db_Repository_GetArticles_PriceFiltered()
+        {
+            var article = this.repository.Get(art => art.Price >= 500000.0m);
+
+            Assert.AreEqual(3, article.Count());
+        }
+
+        [Test]
+        public void Db_Repository_GetArticles_Ordered()
+        {
+            var article = this.repository.Get(orderBy: q => q.OrderByDescending(a => a.Price));
+
+            Assert.AreEqual(27, article.Count());
+            Assert.AreEqual("Test Article 4", article.First().Title);
+            Assert.AreEqual("Test Article 1", article.ElementAt(3).Title);
+
+        }
+
+        [Test]
+        public void Db_Repository_GetArticles_FilteredAndOrdered()
+        {
+            var article = this.repository.Get(filter: art => art.Price >= 500000.0m,
+                                                   orderBy: q => q.OrderByDescending(a => a.Price));
+
+            Assert.AreEqual(3, article.Count());
+            Assert.AreEqual("Test Article 4", article.First().Title);
+            Assert.AreEqual("Test Article 2", article.Last().Title);
+        }
+
+        [Test]
+        public void Db_Repository_GetWithRawSql()
+        {
+            var param = new SqlParameter("title", "Test Article 3");
+            var applications = this.repository.GetWithRawSql("SELECT * FROM [dbo].[Articles] WHERE [Articles].[Title] = @title;", param);
+
+            Assert.AreEqual(1, applications.Count());
+        }
     }
 }
