@@ -17,11 +17,6 @@ namespace GenericStructure.Dal.Exceptions
         SqlUniqueConstraintViolation,
         SqlConstraintCheckViolation,
         // --------------------------------------------------------------------------
-        //                                                                    Context
-        #region ContextConfiguration
-        InvalidContextTarget,
-        #endregion
-        // --------------------------------------------------------------------------
         //                                                         Repositories stack 
         #region RepositoriesSet
         RepositoriesSetMissingMapping,

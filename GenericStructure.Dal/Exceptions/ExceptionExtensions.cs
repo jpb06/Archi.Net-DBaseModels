@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Exceptions
 {
-    public static class ExceptionsHelper
+    public static class ExceptionExtensions
     {
         public static void HandleException(this Exception exception)
         {
