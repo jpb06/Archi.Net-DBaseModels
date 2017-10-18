@@ -146,7 +146,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
 
                     Assert.IsNotNull(id);
 
-                    ErrorReportException ex = this.exceptionsSqlHelper.Get(id.Value);
+                    ErrorReportException ex = this.exceptionsSqlHelper.GetBy(id.Value);
 
                     Assert.AreEqual("One", ex.Message);
                 }
@@ -174,8 +174,8 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
 
                     Assert.IsNotNull(id);
 
-                    ErrorReportException ex = this.exceptionsSqlHelper.Get(id.Value);
-                    ErrorReportException innerEx = this.exceptionsSqlHelper.Get(ex.IdInnerException.Value);
+                    ErrorReportException ex = this.exceptionsSqlHelper.GetBy(id.Value);
+                    ErrorReportException innerEx = this.exceptionsSqlHelper.GetBy(ex.IdInnerException.Value);
 
                     Assert.AreEqual("Two", ex.Message);
                     Assert.AreEqual("One", innerEx.Message);
