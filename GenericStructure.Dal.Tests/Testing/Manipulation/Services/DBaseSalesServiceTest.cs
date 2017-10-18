@@ -234,5 +234,52 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
                 Assert.AreEqual("User1 Title 4", currentValues.Title);
             }
         }
+
+        #region async
+        [Test, Order(5)]
+        public async Task Db_SalesService_CreateArticleAsync()
+        {
+            using (ThreadScopedLifestyle.BeginScope(container))
+            {
+                SalesService service = container.GetInstance<SalesService>();
+
+                this.article.Id = 0;
+                int result = await service.CreateAsync(this.article);
+
+                Assert.Greater(this.article.Id, 0);
+            }
+        }
+
+        [Test, Order(6)]
+        public void Db_SalesService_UpdateArticleAsync()
+        {
+            string newTitle = "New Title";
+            this.article.Title = newTitle;
+
+            using (ThreadScopedLifestyle.BeginScope(container))
+            {
+                SalesService service = container.GetInstance<SalesService>();
+
+                Assert.That(async () =>
+                {
+                    await service.ModifyAsync(this.article);
+                }, Throws.Nothing);
+            }
+        }
+
+        [Test, Order(7)]
+        public void Db_SalesService_DeleteArticleAsync()
+        {
+            using (ThreadScopedLifestyle.BeginScope(container))
+            {
+                SalesService service = container.GetInstance<SalesService>();
+
+                Assert.That(async () =>
+                {
+                    await service.DeleteAsync(this.article);
+                }, Throws.Nothing);
+            }
+        }
+        #endregion
     }
 }

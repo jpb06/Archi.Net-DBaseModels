@@ -15,6 +15,7 @@ namespace GenericStructure.Dal.Context.Contracts
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         DbEntityEntry Entry(object entity);
         int SaveChanges();
+        Task<int> SaveChangesAsync();
         void Dispose();
     }
 }

@@ -116,5 +116,71 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             Assert.AreEqual(expectedArticle.Description, article.Description);
             Assert.AreEqual(expectedArticle.ImagesPath, article.ImagesPath);
         }
+
+        #region async
+        [Test]
+        public async Task AddArticleAsync()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
+
+            mockSalesService.Setup(s => s.CreateAsync(It.Is<Article>(a => a.Title == "Added title")))
+                            .ReturnsAsync(8);
+            this.salesService = mockSalesService.Object;
+
+            int id = await this.salesService.CreateAsync(this.articleToAdd);
+
+            Assert.AreEqual(8, id);
+        }
+
+        [Test]
+        public async Task UpdateArticleAsync()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
+
+            mockSalesService.Setup(r => r.ModifyAsync(It.IsAny<Article>()))
+                            .Returns(Task.FromResult<object>(null))
+                            .Callback((Article a) =>
+                            {
+                                var index = store.Articles.FindIndex(el => el.Id == a.Id);
+                                store.Articles[index] = a;
+                            }).Verifiable();
+            this.salesService = mockSalesService.Object;
+
+            Article article = store.Articles.ElementAt(4);
+            string newTitle = article.Title = "a5";
+            string newDescription = article.Description = "a5d";
+
+            await this.salesService.ModifyAsync(article);
+
+            mockSalesService.Verify(r => r.ModifyAsync(It.IsAny<Article>()), Times.Once());
+            Assert.AreEqual(newTitle, store.Articles.ElementAt(4).Title);
+            Assert.AreEqual(newDescription, store.Articles.ElementAt(4).Description);
+
+        }
+
+        [Test]
+        public async Task DeleteArticleAsync()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ISalesService> mockSalesService = new Mock<ISalesService>();
+
+            mockSalesService.Setup(r => r.DeleteAsync(It.IsAny<Article>()))
+                            .Returns(Task.FromResult<object>(null))
+                            .Callback((Article a) =>
+                            {
+                                store.Articles.Remove(a);
+                            }).Verifiable();
+            this.salesService = mockSalesService.Object;
+
+            Article article = store.Articles.ElementAt(5);
+
+            await this.salesService.DeleteAsync(article);
+
+            mockSalesService.Verify(r => r.DeleteAsync(It.IsAny<Article>()), Times.Once());
+            Assert.AreEqual(6, store.Articles.Count);
+        }
+        #endregion
     }
 }

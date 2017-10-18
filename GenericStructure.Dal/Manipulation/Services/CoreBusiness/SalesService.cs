@@ -60,5 +60,30 @@ namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness
             return (TModel) base.GetByIdFor<TModel>(id);
         }
         #endregion
+
+        #region Generic async
+        public async Task<int> CreateAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel
+        {
+            SaveResult result = await base.CreateForAsync(model);
+
+            result.Validate(1, this.policy);
+
+            return result.AlteredIds[0];
+        }
+
+        public async Task ModifyAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel
+        {
+            SaveResult result = await base.ModifyForAsync(model);
+
+            result.Validate(1, this.policy);
+        }
+
+        public async Task DeleteAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel
+        {
+            SaveResult result = await base.DeleteForAsync(model);
+
+            result.Validate(1, this.policy);
+        }
+        #endregion
     }
 }

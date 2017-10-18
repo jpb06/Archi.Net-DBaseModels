@@ -57,5 +57,40 @@ namespace GenericStructure.Dal.Manipulation.Services.Base
 
             return null;
         }
+
+        protected async Task<SaveResult> SaveAsync(DataConflictPolicy policy)
+        {
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+
+                try
+                {
+                    int result = await this.context.SaveChangesAsync();
+
+                    return new SaveResult { AlteredObjectsCount = result };
+                }
+                catch (DbUpdateConcurrencyException exception)
+                {
+                    if (policy == DataConflictPolicy.NoPolicy)
+                        throw new DalException(DalErrorType.BaseServiceDataConflictWithNoPolicy,
+                            "Data conflict (Optimistic concurrency)");
+
+                    saveFailed = true;
+
+                    DataConflictInfo info = OptimisticConcurrency.ApplyPolicy(policy, exception);
+                    if (info != null)
+                        throw new DataConflictException(DalErrorType.BaseServiceDataConflictWithAskClientPolicy, info);
+                }
+                catch (Exception exception)
+                {
+                    exception.HandleException();
+                }
+
+            } while (saveFailed);
+
+            return null;
+        }
     }
 }
