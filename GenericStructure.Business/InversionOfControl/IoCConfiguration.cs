@@ -19,16 +19,26 @@ using System.Threading.Tasks;
 
 namespace GenericStructure.Business.InversionOfControl
 {
-    internal static class IoCConfiguration
+    public static class IoCConfiguration
     {
-        public static readonly Container Container;
+        public static Container Container;
 
-        static IoCConfiguration()
+        public static void Setup(bool isTestRelated = false)
         {
             Container = new Container();
 
             Container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
 
+            if (isTestRelated)
+                TestRegistration();
+            else
+                ProductionRegistration();
+            
+            Container.Verify();
+        }
+
+        private static void ProductionRegistration() 
+        {
             // Errors reporting
             Container.Register<IDbContext, ErrorsReportingContext>(Lifestyle.Scoped);
             Container.Register(typeof(IGenericRepository<>), typeof(GenericRepository<>), Lifestyle.Scoped);
@@ -40,8 +50,21 @@ namespace GenericStructure.Business.InversionOfControl
             Container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
             Container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
             Container.Register<ISalesService, SalesService>(Lifestyle.Scoped);
-            
-            Container.Verify();
+        }
+
+        private static void TestRegistration() 
+        {
+            // Errors reporting
+            Container.Register<IDbContext, ErrorsReportingContext>(Lifestyle.Scoped);
+            Container.Register(typeof(IGenericRepository<>), typeof(GenericRepository<>), Lifestyle.Scoped);
+            Container.Register<IErrorsReportingService, ErrorsReportingService>(Lifestyle.Scoped);
+            Container.Register<IErrorsReportingManager, ErrorsReportingManager>(Lifestyle.Scoped);
+
+            // Core business
+            Container.Register<ICoreBusinessContext, CoreBusinessTestContext>(Lifestyle.Scoped);
+            Container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
+            Container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
+            Container.Register<ISalesService, SalesService>(Lifestyle.Scoped);
         }
     }
 }

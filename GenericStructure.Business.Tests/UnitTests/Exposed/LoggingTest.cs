@@ -1,4 +1,5 @@
 ﻿using GenericStructure.Business.Exposed;
+using GenericStructure.Business.InversionOfControl;
 using GenericStructure.Business.Tests.AssemblyInformation;
 using GenericStructure.Business.Tests.Exceptions;
 using GenericStructure.Dal.Models.ErrorsReporting;
@@ -23,6 +24,7 @@ namespace GenericStructure.Business.Tests.UnitTests.Exposed
 
         public LoggingTest() 
         {
+            IoCConfiguration.Setup(true);
 
             this.connection = new SqlConnection(DatabaseConfiguration.ErrorsReportingConnectionString);
             this.exceptionsSqlHelper = new ExceptionsSqlHelper(this.connection);

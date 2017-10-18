@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericStructure.Web", "GenericStructure.Web\GenericStructure.Web.csproj", "{06351B32-5AC3-438F-BC43-98F89FDA28A0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{2C958061-6E79-42D8-A632-4A893B6CC664}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dal", "Dal", "{C3C5B22C-5D0F-4A5D-8936-0279B7ABA8A4}"
@@ -12,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericStructure.Business.Tests", "GenericStructure.Business.Tests\GenericStructure.Business.Tests.csproj", "{F949E7C6-16C1-495F-A980-DBFBA5007F73}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Front", "Front", "{921BF7F0-3260-4089-A6FE-30A5081B217A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{356A9D16-8743-4E9F-927B-5590FF48CDAF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericStructure.Business", "GenericStructure.Business\GenericStructure.Business.csproj", "{A320C089-FCAE-4B02-A198-1C44BFA78323}"
 EndProject
@@ -25,16 +21,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{AA32F2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericStructure.Shared", "GenericStructure.Shared\GenericStructure.Shared.csproj", "{0647171D-06C6-41C5-BE29-A585DC5E81ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericStructure.Front.Console", "GenericStructure.Front.Console\GenericStructure.Front.Console.csproj", "{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06351B32-5AC3-438F-BC43-98F89FDA28A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06351B32-5AC3-438F-BC43-98F89FDA28A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06351B32-5AC3-438F-BC43-98F89FDA28A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06351B32-5AC3-438F-BC43-98F89FDA28A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F949E7C6-16C1-495F-A980-DBFBA5007F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F949E7C6-16C1-495F-A980-DBFBA5007F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F949E7C6-16C1-495F-A980-DBFBA5007F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,17 +49,20 @@ Global
 		{0647171D-06C6-41C5-BE29-A585DC5E81ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0647171D-06C6-41C5-BE29-A585DC5E81ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0647171D-06C6-41C5-BE29-A585DC5E81ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{06351B32-5AC3-438F-BC43-98F89FDA28A0} = {356A9D16-8743-4E9F-927B-5590FF48CDAF}
 		{F949E7C6-16C1-495F-A980-DBFBA5007F73} = {2C958061-6E79-42D8-A632-4A893B6CC664}
-		{356A9D16-8743-4E9F-927B-5590FF48CDAF} = {921BF7F0-3260-4089-A6FE-30A5081B217A}
 		{A320C089-FCAE-4B02-A198-1C44BFA78323} = {2C958061-6E79-42D8-A632-4A893B6CC664}
 		{D33F958C-36D0-4723-A6DD-EBB269A0F67A} = {C3C5B22C-5D0F-4A5D-8936-0279B7ABA8A4}
 		{040F94B1-C330-4379-AF9D-00B5CC6CEDA3} = {C3C5B22C-5D0F-4A5D-8936-0279B7ABA8A4}
 		{0647171D-06C6-41C5-BE29-A585DC5E81ED} = {AA32F235-AF7D-44EB-9028-B1E08B4744E4}
+		{7005C3D3-9362-4CF7-B7C6-5C3DAE6FFA6C} = {921BF7F0-3260-4089-A6FE-30A5081B217A}
 	EndGlobalSection
 EndGlobal
