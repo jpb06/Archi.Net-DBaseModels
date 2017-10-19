@@ -20,5 +20,11 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
         void Delete(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
+
+        Task<IEnumerable<TEntity>> GetAsync(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "");
+
     }
 }
