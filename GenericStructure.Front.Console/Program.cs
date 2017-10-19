@@ -12,7 +12,7 @@ namespace GenericStructure.Front.Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             IoCConfiguration.Setup();
 
@@ -24,7 +24,7 @@ namespace GenericStructure.Front.Console
             }
             catch (Exception exception)
             {
-                Logging.Save(exception, AssemblyHelper.AssemblyName, ConsoleErrorType.DivideByZero);
+                await Logging.SaveAsync(exception, AssemblyHelper.AssemblyName, ConsoleErrorType.DivideByZero);
             }
         }
     }
