@@ -30,5 +30,18 @@ namespace GenericStructure.Business.Internal
 
             this.reportingService.LogException(application.Id, exception, errorCode);
         }
+
+        public async Task LogErrorAsync(Exception exception, AssemblyName assemblyName, string errorCode)
+        {
+            string applicationName = assemblyName.Name;
+            string applicationVersion = assemblyName.Version.ToString();
+
+            ErrorReportApplication application = await this.reportingService.GetApplicationAsync(applicationName, applicationVersion);
+            if (application == null)
+                application = await this.reportingService.CreateApplicationAsync(applicationName, applicationVersion);
+
+            await this.reportingService.LogExceptionAsync(application.Id, exception, errorCode);
+        }
+
     }
 }

@@ -20,5 +20,14 @@ namespace GenericStructure.Business.Exposed
                 manager.LogError(exception, assemblyName, errorCode);
             }
         }
+
+        public static async Task SaveAsync(Exception exception, AssemblyName assemblyName, string errorCode)
+        {
+            using (ThreadScopedLifestyle.BeginScope(IoCConfiguration.Container))
+            {
+                IErrorsReportingManager manager = IoCConfiguration.Container.GetInstance<IErrorsReportingManager>();
+                await manager.LogErrorAsync(exception, assemblyName, errorCode);
+            }
+        }
     }
 }

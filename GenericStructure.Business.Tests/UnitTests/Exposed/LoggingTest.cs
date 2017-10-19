@@ -63,5 +63,27 @@ namespace GenericStructure.Business.Tests.UnitTests.Exposed
                 this.exceptionsSqlHelper.Delete(savedException.Id);
             }
         }
+
+        [Test]
+        public async Task SaveAsync()
+        {
+            int a = 2, b = 0;
+
+            try
+            {
+                int c = a / b;
+            }
+            catch (Exception exception)
+            {
+                AssemblyName assemblyName = AssemblyHelper.AssemblyName;
+                await Logging.SaveAsync(exception, assemblyName, TestErrorType.DivideByZero);
+
+                ErrorReportException savedException = this.exceptionsSqlHelper.GetBy(assemblyName.Name, assemblyName.Version.ToString());
+
+                Assert.IsNotNull(savedException);
+
+                this.exceptionsSqlHelper.Delete(savedException.Id);
+            }
+        }
     }
 }
