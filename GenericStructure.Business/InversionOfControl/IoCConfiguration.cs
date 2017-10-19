@@ -11,11 +11,6 @@ using GenericStructure.Dal.Manipulation.Services.ErrorsReporting;
 using GenericStructure.Dal.Manipulation.Services.ErrorsReporting.Contracts;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericStructure.Business.InversionOfControl
 {

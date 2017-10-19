@@ -14,10 +14,8 @@ using NUnit.Framework;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services

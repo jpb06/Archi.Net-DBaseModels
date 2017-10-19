@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.Infrastructure;
 
 namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration
 {

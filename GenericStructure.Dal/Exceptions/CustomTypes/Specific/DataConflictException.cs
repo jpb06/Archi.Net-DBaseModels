@@ -1,11 +1,6 @@
 ﻿using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using GenericStructure.Dal.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Exceptions.Custom.Specific
 {

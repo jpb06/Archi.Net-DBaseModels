@@ -7,10 +7,6 @@ using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts;
 using GenericStructure.Dal.Models.Base;
 using GenericStructure.Dal.Models.CoreBusiness;
 using GenericStructure.Dal.Models.CoreBusiness.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness

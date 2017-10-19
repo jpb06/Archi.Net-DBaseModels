@@ -3,9 +3,7 @@ namespace GenericStructure.Dal.Migrations.Production
     using GenericStructure.Dal.Context.EndObjects;
     using GenericStructure.Dal.Models.CoreBusiness;
     using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class ProdConfiguration : DbMigrationsConfiguration<CoreBusinessContext>
     {

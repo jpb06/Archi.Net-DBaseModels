@@ -5,12 +5,7 @@ using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using GenericStructure.Dal.Manipulation.Services.ErrorsReporting.Contracts;
 using GenericStructure.Dal.Models.ErrorsReporting;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting

@@ -4,10 +4,7 @@ using GenericStructure.Dal.Exceptions.Custom.Specific;
 using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.Base

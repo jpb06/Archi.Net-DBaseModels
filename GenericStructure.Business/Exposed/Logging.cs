@@ -2,10 +2,7 @@
 using GenericStructure.Business.InversionOfControl;
 using SimpleInjector.Lifestyles;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Business.Exposed

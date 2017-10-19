@@ -5,12 +5,8 @@ using GenericStructure.Dal.Models.CoreBusiness;
 using GenericStructure.Shared.Tests.Data.Database.DataSets;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
 {

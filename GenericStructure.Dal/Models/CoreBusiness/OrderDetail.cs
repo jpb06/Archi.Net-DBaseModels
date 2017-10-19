@@ -1,12 +1,7 @@
 ﻿using GenericStructure.Dal.Models.Base;
 using GenericStructure.Dal.Models.CoreBusiness.Contracts;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Models.CoreBusiness
 {

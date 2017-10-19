@@ -3,11 +3,6 @@ using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Base;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using GenericStructure.Dal.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base
