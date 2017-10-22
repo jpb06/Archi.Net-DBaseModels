@@ -1,5 +1,5 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Models.CoreBusiness;
 using System.Data.Entity;
 
 namespace GenericStructure.Dal.Context.Base

@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models.ErrorsReporting;
+﻿using GenericStructure.Models.ErrorsReporting;
 using System.Data.Entity;
 
 namespace GenericStructure.Dal.Context.Contracts

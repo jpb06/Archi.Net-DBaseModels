@@ -1,17 +1,25 @@
-﻿using GenericStructure.Dal.Models.Base;
-using GenericStructure.Dal.Models.CoreBusiness.Contracts;
+﻿using GenericStructure.Models.Base;
+using GenericStructure.Models.CoreBusiness.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Contracts
 {
     public interface ISalesService
     {
-        int Create<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
+        #region Async
         Task<int> CreateAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
-        void Modify<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
         Task ModifyAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
-        void Delete<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
         Task DeleteAsync<TModel>(TModel model) where TModel : BaseModel, ISalesModel;
-        TModel GetById<TModel>(int id) where TModel : BaseModel, ISalesModel;
+
+        Task<TModel> GetByIdAsync<TModel>(int id) where TModel : BaseModel, ISalesModel;
+        Task<List<TModel>> GetAsync<TModel>(
+            Expression<Func<TModel, bool>> filter = null,
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
+            string includeProperties = "") where TModel : BaseModel, ISalesModel;
+        #endregion
     }
 }

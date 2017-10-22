@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models.Base;
+﻿using GenericStructure.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +14,13 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
-        TEntity GetByID(object id);
+        TEntity GetById(object id);
         void Insert(TEntity entity);
         void Delete(object id);
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
 
+        Task<TEntity> GetByIdAsync(object id);
         Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

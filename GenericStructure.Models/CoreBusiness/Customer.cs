@@ -1,9 +1,11 @@
-﻿using GenericStructure.Dal.Models.Base;
-using GenericStructure.Dal.Models.CoreBusiness.Contracts;
+﻿using GenericStructure.Models.Base;
+using GenericStructure.Models.CoreBusiness.Contracts;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GenericStructure.Dal.Models.CoreBusiness
+namespace GenericStructure.Models.CoreBusiness
 {
+    [Table("Customers")]
     public class Customer : BaseModel, ICustomerModel
     {
         /* ----------------------------------------------------------*/

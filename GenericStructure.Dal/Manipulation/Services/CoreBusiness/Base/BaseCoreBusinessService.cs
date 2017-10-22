@@ -2,7 +2,7 @@
 using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Services.Base;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
-using GenericStructure.Dal.Models.Base;
+using GenericStructure.Models.Base;
 using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base
@@ -17,44 +17,6 @@ namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base
             base.policy = DataConflictPolicy.ClientWins;
             this.repositoriesSet = new RepositoriesSet();
         }
-
-        #region Generic alteration
-        protected SaveResult CreateFor<TDBaseModel>(TDBaseModel model)
-            where TDBaseModel : BaseModel
-        {
-            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
-            repository.Insert(model);
-
-            SaveResult result = base.Save(policy);
-            result.AlteredIds = new int[] { model.Id };
-
-            return result;
-        }
-
-        protected SaveResult ModifyFor<TDBaseModel>(TDBaseModel model)
-            where TDBaseModel : BaseModel
-        {
-            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
-            repository.Update(model);
-
-            SaveResult result = this.Save(policy);
-            result.AlteredIds = new int[] { model.Id };
-
-            return result;
-        }
-
-        protected SaveResult DeleteFor<TDBaseModel>(TDBaseModel model)
-            where TDBaseModel : BaseModel
-        {
-            var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
-            repository.Delete(model);
-
-            SaveResult result = this.Save(policy);
-            result.AlteredIds = new int[] { model.Id };
-
-            return result;
-        }
-        #endregion
 
         #region Generic alteration async
         protected async Task<SaveResult> CreateForAsync<TDBaseModel>(TDBaseModel model)
@@ -95,11 +57,11 @@ namespace GenericStructure.Dal.Manipulation.Services.CoreBusiness.Base
         #endregion
 
         #region Data retrieval
-        protected TDBaseModel GetByIdFor<TDBaseModel>(int id)
+        protected async Task<TDBaseModel> GetByIdForAsync<TDBaseModel>(int id)
             where TDBaseModel : BaseModel
         {
             var repository = this.repositoriesSet.GetGeneric<TDBaseModel>();
-            TDBaseModel model = repository.GetByID(id);
+            TDBaseModel model = await repository.GetByIdAsync(id);
 
             return model;
         }

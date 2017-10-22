@@ -1,5 +1,5 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
-using GenericStructure.Dal.Models.ErrorsReporting;
+using GenericStructure.Models.ErrorsReporting;
 using System.Data.Entity;
 
 namespace GenericStructure.Dal.Context.EndObjects

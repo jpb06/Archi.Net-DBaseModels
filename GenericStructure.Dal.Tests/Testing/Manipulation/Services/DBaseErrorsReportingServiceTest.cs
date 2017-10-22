@@ -5,7 +5,7 @@ using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
 using GenericStructure.Dal.Manipulation.Services.ErrorsReporting;
-using GenericStructure.Dal.Models.ErrorsReporting;
+using GenericStructure.Models.ErrorsReporting;
 using GenericStructure.Shared.Tests.Data.Database;
 using GenericStructure.Shared.Tests.Data.Database.DataSets;
 using GenericStructure.Shared.Tests.Data.Database.Primitives;
@@ -58,127 +58,6 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             this.connection.Close();
             this.dataSet.Destroy();
             this.dataSet.Dispose();
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_CreateApplication()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                ErrorReportApplication result = service.CreateApplication("TestApplication", "a.a.a.a");
-
-                Assert.IsNotNull(result);
-                Assert.Greater(result.Id, 0);
-
-                this.dataSet.ApplicationsIds.Add(result.Id);
-            }
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_CreateApplication_AlreadyExists()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                DalException ex = Assert.Throws<DalException>(() =>
-                {
-                    service.CreateApplication("TestApplicationAlreadyExisting", "a.a.a.a");
-                });
-                Assert.That(ex.errorType, Is.EqualTo(DalErrorType.SqlUniqueConstraintViolation));
-            }
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_GetApplication() 
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                ErrorReportApplication application = service.GetApplication("TestApplicationAlreadyExisting", "a.a.a.a");
-
-                Assert.IsNotNull(application);
-                Assert.Greater(application.Id, 0);
-                Assert.AreEqual(new DateTime(2000, 1, 1), application.FirstRunDate);
-            }
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_GetApplication_NotExisting()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                ErrorReportApplication application = null;
-                Assert.That(() =>
-                {
-                    application = service.GetApplication("TestApplicationAlreadyExisting", "z.z.z.z");
-                }, Throws.Nothing);
-
-                Assert.IsNull(application);
-            }
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_LogException() 
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                try 
-                {
-                    ExceptionGenerator.ThrowsOne();
-                }
-                catch (Exception exception) 
-                {
-                    int? id = null;
-                    Assert.That(() =>
-                    {
-                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception, "ErrorType.Specific");
-                    }, Throws.Nothing);
-
-                    Assert.IsNotNull(id);
-
-                    ErrorReportException ex = this.exceptionsSqlHelper.GetBy(id.Value);
-
-                    Assert.AreEqual("One", ex.Message);
-                }
-            }
-        }
-
-        [Test]
-        public void Db_ErrorsReportingService_LogException_WithInner()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                ErrorsReportingService service = container.GetInstance<ErrorsReportingService>();
-
-                try
-                {
-                    ExceptionGenerator.ThrowsTwo();
-                }
-                catch (Exception exception)
-                {
-                    int? id = null;
-                    Assert.That(() =>
-                    {
-                        id = service.LogException(this.dataSet.ApplicationsIds.ElementAt(0), exception, "ErrorType.Specific");
-                    }, Throws.Nothing);
-
-                    Assert.IsNotNull(id);
-
-                    ErrorReportException ex = this.exceptionsSqlHelper.GetBy(id.Value);
-                    ErrorReportException innerEx = this.exceptionsSqlHelper.GetBy(ex.IdInnerException.Value);
-
-                    Assert.AreEqual("Two", ex.Message);
-                    Assert.AreEqual("One", innerEx.Message);
-                }
-            }
         }
 
         #region Async

@@ -2,7 +2,7 @@
 using GenericStructure.Business.InversionOfControl;
 using GenericStructure.Business.Tests.AssemblyInformation;
 using GenericStructure.Business.Tests.Exceptions;
-using GenericStructure.Dal.Models.ErrorsReporting;
+using GenericStructure.Models.ErrorsReporting;
 using GenericStructure.Shared.Tests.Data.Database;
 using GenericStructure.Shared.Tests.Data.Database.Primitives;
 using NUnit.Framework;
@@ -37,28 +37,6 @@ namespace GenericStructure.Business.Tests.UnitTests.Exposed
         public void Cleanup()
         {
             this.connection.Close();
-        }
-
-        [Test]
-        public void Save() 
-        {
-            int a = 2, b = 0;
-
-            try
-            {
-                int c = a / b;
-            }
-            catch (Exception exception)
-            {
-                AssemblyName assemblyName = AssemblyHelper.AssemblyName;
-                Logging.Save(exception, assemblyName, TestErrorType.DivideByZero);
-
-                ErrorReportException savedException = this.exceptionsSqlHelper.GetBy(assemblyName.Name, assemblyName.Version.ToString());
-
-                Assert.IsNotNull(savedException);
-
-                this.exceptionsSqlHelper.Delete(savedException.Id);
-            }
         }
 
         [Test]

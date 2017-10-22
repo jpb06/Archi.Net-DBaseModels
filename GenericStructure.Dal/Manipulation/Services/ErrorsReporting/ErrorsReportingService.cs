@@ -3,7 +3,7 @@ using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Services.Base;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
 using GenericStructure.Dal.Manipulation.Services.ErrorsReporting.Contracts;
-using GenericStructure.Dal.Models.ErrorsReporting;
+using GenericStructure.Models.ErrorsReporting;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,57 +25,6 @@ namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting
 
             this.applicationsRepository = applicationsRespository;
             this.exceptionRepository = exceptionsRespository;
-        }
-
-        
-
-        public ErrorReportApplication CreateApplication(string name, string version)
-        {
-            ErrorReportApplication application = new ErrorReportApplication
-            {
-                Name = name, 
-                Version = version, 
-                FirstRunDate = DateTime.Now
-            };
-
-            this.applicationsRepository.Insert(application);
-            SaveResult result = base.Save(base.policy);
-
-            return result.AlteredObjectsCount == 1 ? application : null;
-        }
-
-        public ErrorReportApplication GetApplication(string name, string version)
-        {
-            ErrorReportApplication application = this.applicationsRepository
-                                                     .Get(el => el.Name == name && el.Version == version)
-                                                     .SingleOrDefault();
-            return application;
-        }
-
-        public int? LogException(int idApplication, Exception exception, string errorCode)
-        {
-            if (exception == null) return null;
-
-            var exceptionModel = new ErrorReportException();
-            exceptionModel.IdApplication = idApplication;
-            exceptionModel.Type = exception.GetType().ToString();
-            exceptionModel.Message = exception.Message;
-            exceptionModel.Source = exception.Source;
-            if (exception.TargetSite != null && exception.TargetSite.Module != null)
-                exceptionModel.SiteModule = exception.TargetSite.Module.Name;
-            exceptionModel.SiteName = exception.TargetSite.Name;
-            exceptionModel.StackTrace = exception.StackTrace;
-            exceptionModel.HelpLink = exception.HelpLink;
-            exceptionModel.Date = DateTime.Now;
-            exceptionModel.IdInnerException = this.LogException(idApplication, exception.InnerException, errorCode);
-
-            exceptionModel.CustomErrorType = errorCode;
-
-            this.exceptionRepository.Insert(exceptionModel);
-
-            SaveResult result = base.Save(base.policy);
-
-            return result.AlteredObjectsCount == 1 ? exceptionModel.Id : (int?)null;
         }
 
         #region Async
@@ -106,20 +55,21 @@ namespace GenericStructure.Dal.Manipulation.Services.ErrorsReporting
         {
             if (exception == null) return null;
 
-            var exceptionModel = new ErrorReportException();
-            exceptionModel.IdApplication = idApplication;
-            exceptionModel.Type = exception.GetType().ToString();
-            exceptionModel.Message = exception.Message;
-            exceptionModel.Source = exception.Source;
-            if (exception.TargetSite != null && exception.TargetSite.Module != null)
-                exceptionModel.SiteModule = exception.TargetSite.Module.Name;
-            exceptionModel.SiteName = exception.TargetSite.Name;
-            exceptionModel.StackTrace = exception.StackTrace;
-            exceptionModel.HelpLink = exception.HelpLink;
-            exceptionModel.Date = DateTime.Now;
-            exceptionModel.IdInnerException = await this.LogExceptionAsync(idApplication, exception.InnerException, errorCode);
-
-            exceptionModel.CustomErrorType = errorCode;
+            var exceptionModel = new ErrorReportException
+            {
+                IdApplication = idApplication,
+                Type = exception.GetType().ToString(),
+                Message = exception.Message,
+                Source = exception.Source,
+                SiteName = exception.TargetSite.Name,
+                StackTrace = exception.StackTrace,
+                HelpLink = exception.HelpLink,
+                SiteModule = exception?.TargetSite?.Module.Name,
+                Date = DateTime.Now,
+                CustomErrorType = errorCode,
+               
+                IdInnerException = await this.LogExceptionAsync(idApplication, exception.InnerException, errorCode),
+            };
 
             this.exceptionRepository.Insert(exceptionModel);
 

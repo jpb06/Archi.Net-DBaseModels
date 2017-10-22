@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models.CoreBusiness;
+﻿using GenericStructure.Models.CoreBusiness;
 
 namespace GenericStructure.Dal.Manipulation.Repositories.Contracts
 {

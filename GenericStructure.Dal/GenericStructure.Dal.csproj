@@ -101,17 +101,6 @@
       <DependentUpon>201710041622483_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Tests\TestsConfiguration.cs" />
-    <Compile Include="Models\CoreBusiness\Article.cs" />
-    <Compile Include="Models\Base\BaseModel.cs" />
-    <Compile Include="Models\CoreBusiness\Category.cs" />
-    <Compile Include="Models\CoreBusiness\Contracts\ICustomerModel.cs" />
-    <Compile Include="Models\CoreBusiness\Contracts\IOrdersModel.cs" />
-    <Compile Include="Models\CoreBusiness\Contracts\ISalesModel.cs" />
-    <Compile Include="Models\CoreBusiness\Customer.cs" />
-    <Compile Include="Models\CoreBusiness\Order.cs" />
-    <Compile Include="Models\CoreBusiness\OrderDetail.cs" />
-    <Compile Include="Models\ErrorsReporting\ErrorReportApplication.cs" />
-    <Compile Include="Models\ErrorsReporting\ErrorReportException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +118,12 @@
       <DependentUpon>201710041622483_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GenericStructure.Models\GenericStructure.Models.csproj">
+      <Project>{f0e00f8d-9ba2-4903-b6e8-0353366f44fd}</Project>
+      <Name>GenericStructure.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

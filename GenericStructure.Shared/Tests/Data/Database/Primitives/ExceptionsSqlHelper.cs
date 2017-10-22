@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models.ErrorsReporting;
+﻿using GenericStructure.Models.ErrorsReporting;
 using System.Data.SqlClient;
 
 namespace GenericStructure.Shared.Tests.Data.Database.Primitives

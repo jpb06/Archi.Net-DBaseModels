@@ -45,6 +45,8 @@ namespace GenericStructure.Business.InversionOfControl
             Container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
             Container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
             Container.Register<ISalesService, SalesService>(Lifestyle.Scoped);
+
+            Container.Register<ISalesManager, SalesManager>(Lifestyle.Scoped);
         }
 
         private static void TestRegistration() 
@@ -60,6 +62,8 @@ namespace GenericStructure.Business.InversionOfControl
             Container.Register<IArticlesRepository, ArticlesRepository>(Lifestyle.Scoped);
             Container.Register<ICategoriesRepository, CategoriesRepository>(Lifestyle.Scoped);
             Container.Register<ISalesService, SalesService>(Lifestyle.Scoped);
+
+            Container.Register<ISalesManager, SalesManager>(Lifestyle.Scoped);
         }
     }
 }

@@ -1,7 +1,7 @@
 namespace GenericStructure.Dal.Migrations.Tests
 {
     using GenericStructure.Dal.Context.EndObjects;
-    using GenericStructure.Dal.Models.CoreBusiness;
+    using GenericStructure.Models.CoreBusiness;
     using System;
     using System.Data.Entity.Migrations;
 

@@ -1,7 +1,7 @@
 ﻿using GenericStructure.Dal.Exceptions;
 using GenericStructure.Dal.Exceptions.CustomTypes;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
-using GenericStructure.Dal.Models.Base;
+using GenericStructure.Models.Base;
 using System;
 using System.Collections.Generic;
 

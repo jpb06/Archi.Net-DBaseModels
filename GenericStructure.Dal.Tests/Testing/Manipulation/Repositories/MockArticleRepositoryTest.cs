@@ -1,12 +1,13 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
-using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Models.CoreBusiness;
 using GenericStructure.Shared.Tests.Data.Mocked;
 using Moq;
 using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
 {
@@ -18,7 +19,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         public MockArticleRepositoryTest() { }
 
         [Test]
-        public void AddArticle()
+        public void Insert()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -56,7 +57,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void UpdateArticle()
+        public void Update()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -83,7 +84,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void DeleteArticle()
+        public void Delete()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -105,7 +106,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void DeleteArticleById()
+        public void DeleteById()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -126,17 +127,17 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void GetArticleById()
+        public void GetById()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
-            mockArticleRepository.Setup(r => r.GetByID(It.IsInRange<int>(1, 6, Range.Inclusive)))
+            mockArticleRepository.Setup(r => r.GetById(It.IsInRange<int>(1, 6, Range.Inclusive)))
                                  .Returns<int>(id => store.Articles.Find(el => el.Id == id));
             this.articlesRepository = mockArticleRepository.Object;
 
-            Article article = this.articlesRepository.GetByID(1);
+            Article article = this.articlesRepository.GetById(1);
             Article storedArticle = store.Articles.Single(el => el.Id == 1);
 
             Assert.AreEqual(article.Title, storedArticle.Title);
@@ -145,23 +146,23 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void GetArticleById_DoesntExist()
+        public void GetById_DoesntExist()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
             Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
 
-            mockArticleRepository.Setup(r => r.GetByID(It.IsNotIn<int>(1, 2, 3, 4, 5, 6)))
+            mockArticleRepository.Setup(r => r.GetById(It.IsNotIn<int>(1, 2, 3, 4, 5, 6)))
                                  .Returns<Article>(null);
             this.articlesRepository = mockArticleRepository.Object;
 
-            Article article = this.articlesRepository.GetByID(10);
+            Article article = this.articlesRepository.GetById(10);
 
             Assert.AreEqual(null, article);
         }
 
         [Test]
-        public void GetArticles_IdCategoryFiltered()
+        public void Get_Filtered()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -179,7 +180,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void GetArticles_MinimumPriceFiltered()
+        public void Get_MinimumPriceFiltered()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -197,7 +198,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void GetArticles_Ordered()
+        public void Get_Ordered()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -217,7 +218,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
         }
 
         [Test]
-        public void GetArticles_PriceFilteredAndOrdered()
+        public void Get_PriceFilteredAndOrdered()
         {
             VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
             Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
@@ -238,5 +239,130 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
             Assert.AreEqual(150m, result.Last().Price);
             Assert.AreEqual(1000.0m, result.First().Price);
         }
+
+        #region async
+        [Test]
+        public async Task GetByIdAsync()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetByIdAsync(It.IsInRange<int>(1, 6, Range.Inclusive)))
+                                 .Returns<int>(id => Task.FromResult(store.Articles.Find(el => el.Id == id)));
+            this.articlesRepository = mockArticleRepository.Object;
+
+            Article article = await this.articlesRepository.GetByIdAsync(1);
+            Article storedArticle = store.Articles.Single(el => el.Id == 1);
+
+            Assert.AreEqual(article.Title, storedArticle.Title);
+            Assert.AreEqual(article.Description, storedArticle.Description);
+            Assert.AreEqual(article.IdCategory, storedArticle.IdCategory);
+        }
+
+        [Test]
+        public async Task GetByIdAsync_DoesntExist()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetByIdAsync(It.IsNotIn<int>(1, 2, 3, 4, 5, 6)))
+                                 .Returns<int>(id => Task.FromResult<Article>(null));
+            this.articlesRepository = mockArticleRepository.Object;
+
+            Article article = await this.articlesRepository.GetByIdAsync(10);
+
+            Assert.AreEqual(null, article);
+        }
+
+        [Test]
+        public async Task GetAsync_Filtered()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetAsync(It.IsAny<Expression<Func<Article, bool>>>(), null, string.Empty))
+                                 .Returns((Expression<Func<Article, bool>> filter,
+                                           Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
+                                           string includeProperties) => Task.FromResult(store.Articles.Where(filter.Compile())));
+            this.articlesRepository = mockArticleRepository.Object;
+
+            var result = await this.articlesRepository.GetAsync(a => a.IdCategory == 1);
+
+            Assert.AreEqual(3, result.Count());
+        }
+
+        [Test]
+        public async Task GetAsync_MinimumPriceFiltered()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetAsync(It.IsAny<Expression<Func<Article, bool>>>(), null, string.Empty))
+                                 .Returns((Expression<Func<Article, bool>> filter,
+                                           Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
+                                           string includeProperties) => Task.FromResult(store.Articles.Where(filter.Compile())));
+            this.articlesRepository = mockArticleRepository.Object;
+
+            var result = await this.articlesRepository.GetAsync(filter: a => a.Price > 100m);
+
+            Assert.AreEqual(4, result.Count());
+        }
+
+        [Test]
+        public async Task GetAsync_Ordered()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetAsync(null, It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(), string.Empty))
+                                 .Returns((Expression<Func<Article, bool>> filter,
+                                           Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
+                                           string includeProperties) =>
+                                 {
+                                     var ordered = orderBy.Invoke(store.Articles.AsQueryable());
+                                     return Task.FromResult(ordered.AsEnumerable());
+                                 });
+            this.articlesRepository = mockArticleRepository.Object;
+
+            var result = await this.articlesRepository.GetAsync(orderBy: q => q.OrderByDescending(a => a.Id));
+
+            Assert.AreEqual(7, result.Count());
+            Assert.AreEqual(1, result.Last().Id);
+            Assert.AreEqual(7, result.First().Id);
+        }
+
+        [Test]
+        public async Task GetAsync_PriceFilteredAndOrdered()
+        {
+            VolatileCoreBusinessDataset store = new VolatileCoreBusinessDataset();
+            Mock<ICoreBusinessContext> context = new Mock<ICoreBusinessContext>();
+            Mock<ArticlesRepository> mockArticleRepository = new Mock<ArticlesRepository>(context.Object);
+
+            mockArticleRepository.Setup(r => r.GetAsync(It.IsAny<Expression<Func<Article, bool>>>(),
+                                                        It.IsAny<Func<IQueryable<Article>, IOrderedQueryable<Article>>>(),
+                                                        string.Empty))
+                                 .Returns((Expression<Func<Article, bool>> filter,
+                                           Func<IQueryable<Article>, IOrderedQueryable<Article>> orderBy,
+                                           string includeProperties) =>
+                                 {
+                                     var filtered = store.Articles.Where(filter.Compile()).AsQueryable();
+                                     var ordered = orderBy.Invoke(filtered);
+                                     return Task.FromResult(ordered.AsEnumerable());
+                                 });
+            this.articlesRepository = mockArticleRepository.Object;
+
+            var result = await this.articlesRepository.GetAsync(filter: a => a.Price > 100m,
+                                                          orderBy: q => q.OrderByDescending(a => a.Price));
+
+            Assert.AreEqual(4, result.Count());
+            Assert.AreEqual(150m, result.Last().Price);
+            Assert.AreEqual(1000.0m, result.First().Price);
+        }
+        #endregion
     }
 }

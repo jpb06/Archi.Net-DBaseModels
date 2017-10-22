@@ -1,9 +1,9 @@
-﻿using GenericStructure.Dal.Models.Base;
+﻿using GenericStructure.Models.Base;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GenericStructure.Dal.Models.ErrorsReporting
+namespace GenericStructure.Models.ErrorsReporting
 {
     [Table("Exceptions")]
     public class ErrorReportException : BaseModel

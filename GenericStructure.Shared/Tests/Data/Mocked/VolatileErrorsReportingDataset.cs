@@ -1,4 +1,4 @@
-﻿using GenericStructure.Dal.Models.ErrorsReporting;
+﻿using GenericStructure.Models.ErrorsReporting;
 using System;
 using System.Collections.Generic;
 

@@ -1,6 +1,6 @@
 ﻿using GenericStructure.Dal.Context.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
-using GenericStructure.Dal.Models.Base;
+using GenericStructure.Models.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -45,7 +45,7 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
                 return query.ToList();
         }
 
-        public virtual TEntity GetByID(object id)
+        public virtual TEntity GetById(object id)
         {
             return this.dbSet.Find(id);
         }
@@ -76,6 +76,11 @@ namespace GenericStructure.Dal.Manipulation.Repositories.Implementation.Base
         }
 
         #region Async
+        public virtual async Task<TEntity> GetByIdAsync(object id)
+        {
+            return await this.dbSet.FindAsync(id);
+        }
+
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

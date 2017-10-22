@@ -7,7 +7,7 @@ using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness;
 using GenericStructure.Dal.Manipulation.Services.CoreBusiness.Configuration;
-using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Models.CoreBusiness;
 using GenericStructure.Shared.Tests.Data.Database;
 using GenericStructure.Shared.Tests.Data.Database.DataSets;
 using GenericStructure.Shared.Tests.Data.Database.Primitives;
@@ -71,150 +71,91 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Services
             this.dataSet.Dispose();
         }
 
-        [Test, Order(1)]
-        public void Db_SalesService_CreateArticle()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                SalesService service = container.GetInstance<SalesService>();
-                
-                int result = service.Create(this.article);
-
-                Assert.Greater(this.article.Id, 0);
-            }
-        }
-
-        [Test, Order(2)]
-        public void Db_SalesService_GetArticleById()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                SalesService service = container.GetInstance<SalesService>();
-                
-                Article article = service.GetById<Article>(this.article.Id);
-
-                Assert.IsNotNull(article);
-                Assert.AreEqual(this.article.Title, article.Title);
-                Assert.AreEqual(this.article.Description, article.Description);
-            }
-        }
-
-        [Test, Order(3)]
-        public void Db_SalesService_UpdateArticle()
-        {
-            string newTitle = "New Title";
-            this.article.Title = newTitle;
-
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                SalesService service = container.GetInstance<SalesService>();
-
-                Assert.That(() =>
-                {
-                    service.Modify(this.article);
-                }, Throws.Nothing);
-            }
-        }
-
-        [Test, Order(4)]
-        public void Db_SalesService_DeleteArticle()
-        {
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                SalesService service = container.GetInstance<SalesService>();
-
-                Assert.That(() =>
-                {
-                    service.Delete(this.article);
-                }, Throws.Nothing);
-            }
-        }
-
         [Test]
-        public void Db_SalesService_Concurrency_NoPolicy()
+        public async Task Db_SalesService_Concurrency_NoPolicy()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
                 SalesService service = container.GetInstance<SalesService>();
                 service.SetPolicy(DataConflictPolicy.NoPolicy);
 
-                var article = service.GetById<Article>(this.dataSet.ArticlesIds.First());
+                var article = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.First());
                 article.Title = "User1 Title 1";
 
                 this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 1");
 
-                DalException ex = Assert.Throws<DalException>(() =>
+                DalException ex = Assert.ThrowsAsync<DalException>(async () =>
                 {
-                    service.Modify(article);
+                    await service.ModifyAsync(article);
                 });
                 Assert.That(ex.errorType, Is.EqualTo(DalErrorType.BaseServiceDataConflictWithNoPolicy));
             }
         }
 
         [Test]
-        public void Db_SalesService_Concurrency_ClientWins()
+        public async Task Db_SalesService_Concurrency_ClientWins()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
                 SalesService service = container.GetInstance<SalesService>();
                 service.SetPolicy(DataConflictPolicy.ClientWins);
 
-                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
+                var article = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.ElementAt(1));
                 article.Description = "User1 Title 2";
 
                 this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 2");
 
-                Assert.That(() =>
+                Assert.That(async () =>
                 {
-                    service.Modify(article);
+                    await service.ModifyAsync(article);
                 }, Throws.Nothing);
 
-                var updatedArticle = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(1));
+                var updatedArticle = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.ElementAt(1));
 
                 Assert.AreEqual("User1 Title 2", updatedArticle.Description);
             }
         }
 
         [Test]
-        public void Db_SalesService_Concurrency_DatabaseWins()
+        public async Task Db_SalesService_Concurrency_DatabaseWins()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
                 SalesService service = container.GetInstance<SalesService>();
                 service.SetPolicy(DataConflictPolicy.DatabaseWins);
 
-                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
+                var article = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.ElementAt(2));
                 article.Description = "User1 Title 3";
 
                 this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 3");
 
-                Assert.That(() =>
+                Assert.That(async () =>
                 {
-                    service.Modify(article);
+                    await service.ModifyAsync(article);
                 }, Throws.Nothing);
 
-                var updatedArticle = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(2));
+                var updatedArticle = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.ElementAt(2));
 
                 Assert.AreEqual("User2 Title 3", updatedArticle.Title);
             }
         }
 
         [Test]
-        public void Db_SalesService_Concurrency_AskClient()
+        public async Task Db_SalesService_Concurrency_AskClient()
         {
             using (ThreadScopedLifestyle.BeginScope(container))
             {
                 SalesService service = container.GetInstance<SalesService>();
                 service.SetPolicy(DataConflictPolicy.AskClient);
 
-                var article = service.GetById<Article>(this.dataSet.ArticlesIds.ElementAt(3));
+                var article = await service.GetByIdAsync<Article>(this.dataSet.ArticlesIds.ElementAt(3));
                 article.Title = "User1 Title 4";
 
                 this.articlesSqlHelper.ModifyTitle(article.Id, "User2 Title 4");
 
-                DataConflictException dce = Assert.Throws<DataConflictException>(() =>
+                DataConflictException dce = Assert.ThrowsAsync<DataConflictException>(async () =>
                 {
-                    service.Modify(article);
+                    await service.ModifyAsync(article);
                 });
                 Assert.AreEqual(DalErrorType.BaseServiceDataConflictWithAskClientPolicy, dce.errorType);
 

@@ -5,7 +5,7 @@ using GenericStructure.Dal.Manipulation.Repositories;
 using GenericStructure.Dal.Manipulation.Repositories.Contracts;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Base;
 using GenericStructure.Dal.Manipulation.Repositories.Implementation.Specific;
-using GenericStructure.Dal.Models.CoreBusiness;
+using GenericStructure.Models.CoreBusiness;
 using Moq;
 using NUnit.Framework;
 
@@ -36,7 +36,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
                 repositoriesSet.GetGeneric<Article>();
             });
             Assert.That(ex.errorType, Is.EqualTo(DalErrorType.RepositoriesSetMissingMapping));
-            Assert.That(ex.Message, Is.EqualTo("Instance is missing for GenericStructure.Dal.Models.CoreBusiness.Article"));
+            Assert.That(ex.Message, Is.EqualTo("Instance is missing for GenericStructure.Models.CoreBusiness.Article"));
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace GenericStructure.Dal.Tests.Testing.Manipulation.Repositories
                 repositoriesSet.GetGeneric<Article>();
             });
             Assert.That(ex.errorType, Is.EqualTo(DalErrorType.RepositoriesSetMissingMapping));
-            Assert.That(ex.Message, Is.EqualTo("Instance is missing for GenericStructure.Dal.Models.CoreBusiness.Article"));
+            Assert.That(ex.Message, Is.EqualTo("Instance is missing for GenericStructure.Models.CoreBusiness.Article"));
         }
     }
 }
